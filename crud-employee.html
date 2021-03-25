@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Crud Employee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oldenburg&family=Actor&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="jumbotron text-center" id = "top-banner">
+        <h4 id = "created">A CPSC471 Project created by Stephen Dios, Charlene Madayag, and Teddy Kalp</h4>
+    </div>
+    <div class = "container">
+      <div class = "row text-center">
+        <div class = "col-sm-3" id = "logo">
+          <img src="imgs/logo" alt="Work It Logo" width = "80%">
+        </div>
+        <div class = "col-sm-9 headings">
+          <h3>Crud Employee</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <p class = "employeeOps"><b>SEARCH FOR EMPLOYEE</b></p><br>
+          <input type="text" id = "searchManagerID" placeholder="Your Employee ID">
+          <input type="text" id = "searchEmployeeID" placeholder="Search Employee ID">
+          <button id = "search-btn" type="button" name="button">Search</button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-12">
+          <p class = "employeeOps"><b>DELETE EMPLOYEE</b></p><br>
+          <input type="text" id = "deleteManagerID" placeholder="Your Employee ID">
+          <input type="text" id = "deleteEmployeeID" placeholder="Employee ID to Delete">
+          <button id = "delete-btn" type="button" name="button">Delete</button>
+        </div>
+      </div>
+      <br>
+      <div class="row text-center">
+        <div class="col-sm-6">
+          <p class = "employeeOps"><b>ADD EMPLOYEE</b></p>
+          <input class = "addEmployee" type="text" id = "addManagerID" placeholder="Your Employee ID"><br>
+          <input class = "addEmployee" type="text" id = "addEmployeeFirstName" placeholder="Employee First Name"><br>
+          <input class = "addEmployee" type="text" id = "addEmployeeLastName" placeholder="Employee Last Name"><br>
+          <p class = "employeeOps">Is this employee a manager role?</p>
+          <input type="radio" name="manager">
+          <label for="yes">Yes</label>
+          <input type="radio" name="manager">
+          <label for="no">No</label><br>
+          <p class = "employeeOps">Is this employee Salary or Wage Based?</p>
+          <input type="radio" name="pay">
+          <label for="yes">Salary</label>
+          <input type="radio" name="pay">
+          <label for="no">Wage</label><br>
+          <input class = "addEmployee" type="text" id = "addPay" placeholder="Salary or Wage/hr"><br>
+          <input class = "addEmployee" type="text" id = "addDepartmentName" placeholder="Employee Department Name"><br>
+          <input class = "addEmployee" type="text" id = "addDepartmentNumber" placeholder="Employee Department Number"><br>
+          <button id = "add-btn" class = "addEmployee" type="button" name="button">Add</button>
+        </div>
+        <div class="col-sm-6">
+          <p class = "employeeOps"><b>UPDATE EMPLOYEE</b></p><br>
+          <input class = "updateEmployee" type="text" id = "updateManagerID" placeholder="Your Employee ID"><br>
+          <input class = "updateEmployee" type="text" id = "updateEmployeeID" placeholder="Employee ID"><br>
+          <p>Please Fill in the fields you would like to update</p>
+          <input class = "updateEmployee" type="text" id = "updateEmployeeFirstName" placeholder="Employee First Name"><br>
+          <input class = "updateEmployee" type="text" id = "updateEmployeeLastName" placeholder="Employee Last Name"><br>
+          <p class = "employeeOps">Is this employee a manager role?</p>
+          <input type="radio" name="manager">
+          <label for="yes">Yes</label>
+          <input type="radio" name="manager">
+          <label for="no">No</label><br>
+          <p class = "employeeOps">Is this employee Salary or Wage Based?</p>
+          <input type="radio" name="pay">
+          <label for="yes">Salary</label>
+          <input type="radio" name="pay">
+          <label for="no">Wage</label><br>
+          <input class = "updateEmployee" type="text" id = "updatePay" placeholder="Salary or Wage/hr"><br>
+          <input class = "updateEmployee" type="text" id = "updateDepartmentName" placeholder="Employee Department Name"><br>
+          <input class = "updateEmployee" type="text" id = "updateDepartmentNumber" placeholder="Employee Department Number"><br>
+          <button id = "update-btn" class = "updateEmployee" type="button" name="button">Update</button>
+        </div>
+      </div>
+    </div>
+    <script src = "crud-employee.js"></script>
+  </body>
+</html>

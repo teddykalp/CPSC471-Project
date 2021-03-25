@@ -9,13 +9,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oldenburg&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
   </head>
   <body>
     <div class="jumbotron text-center" id = "top-banner">
         <h4 id = "created">A CPSC471 Project created by Stephen Dios, Charlene Madayag, and Teddy Kalp</h4>
     </div>
     <div class="container">
-      <div class = "row text-center">
+      <div class = "row text-center headings">
         <div class = "col-sm-3">
           <img src="imgs/logo" alt="Work It Logo" width = "80%;">
         </div>
@@ -26,6 +27,31 @@
           <h2>Hello Ron</h2>
         </div>
       </div>
+      <div = "row text-center">
+        <div class = "col-sm-6">
+          <button class = "manager-btn" id = "crud-btn">
+            <i class="fas fa-users"></i>CRUD Employee
+          </button>
+          <br>
+          <button class = "manager-btn" id = "pay-btn">
+            <i class="fas fa-receipt"></i>View My Pay
+          </button>
+          <br>
+          <button class = "manager-btn" id = "schedule-btn">
+            <i class="far fa-calendar-alt"></i>View/Add Schedules
+          </button>
+          <br>
+          <button class = "manager-btn" id = "notification-btn">
+            <i class="fas fa-bell"></i>Send Notification
+          </button>
+        </div>
+        <div class = "col-sm-6">
+          <button id = "clock-btn">
+            <i class="fas fa-clock" id = "clock"></i><br>Clock In
+          </button>
+        </div>
+      </div>
     </div>
+    <script src = "manager.js"></script>
   </body>
 </html>

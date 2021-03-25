@@ -1,0 +1,107 @@
+#created{
+  font-family: 'Oldenburg', cursive;
+  color: white;
+}
+
+#top-banner{
+  background-color: #FBD44B;
+}
+
+#welcome{
+  background-color: inherit;
+  margin-top: -5%
+}
+
+#welcomeText{
+  font-family: 'Oldenburg', cursive;
+  color: #FBD44B;
+}
+
+#managerLogin h3{
+  color: #FBD44B;
+}
+
+#employeeLogin h3{
+  color: #FBD44B;
+}
+
+#input-container {
+  background-color: #FBD44B80;
+  height: 20vh;
+}
+
+#mgr-input{
+  margin-top: 5%;
+  font-family: 'Actor', sans-serif;
+}
+
+#mgr-button{
+  background-color: #F2AE29;
+  font-size: 20pt;
+  font-family: 'Oldenburg', cursive;
+  width: 25%;
+  height: 5vh;
+}
+
+#mgr-button:hover{
+    border: 2px solid white;
+    color: white;
+}
+
+.headings{
+  color: #FBD44B;
+  font-family: 'Oldenburg', cursive;
+}
+
+.manager-btn{
+  background-color: #FBD44B;
+  width: 100%;
+  font-size: 200%;
+  margin-top: 10%;
+  font-family: 'Oldenburg', cursive;
+}
+
+.manager-btn:hover{
+  border: 2px solid #F2AE29;
+  color: white;
+}
+
+#clock-btn{
+  background-color: #FBD44B;
+  width: 80%;
+  margin-top: 20%;
+  margin-left: 20%;
+  height: 20vh;
+  font-size: 200%;
+  font-family: 'Oldenburg', cursive;
+}
+
+i {
+  margin-right: 10%;
+}
+
+#clock{
+  margin-right: 0%;
+  font-size: 500%;
+}
+
+#clock-btn:hover{
+  border: 2px solid #F2AE29;
+  color: white;
+}
+
+.addEmployee{
+  font-family: 'Actor', sans-serif;
+  margin-top: 5%;
+  width: 100%;
+}
+
+.updateEmployee{
+  font-family: 'Actor', sans-serif;
+  margin-top: 3%;
+  width: 100%;
+}
+
+.employeeOps{
+  font-family: 'Poppins', sans-serif;
+}
