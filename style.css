@@ -39,7 +39,8 @@
 }
 
 #mgr-button{
-  background-color: #FBD44B;
+  background-color: #F2AE29;
+  font-size: 20pt;
   font-family: 'Oldenburg', cursive;
   width: 25%;
   height: 5vh;
@@ -47,10 +48,12 @@
 
 #mgr-button:hover{
     border: 2px solid white;
+    color: white;
 }
 
 #emp-button{
-  background-color: #FBD44B;
+  background-color: #F2AE29;
+  font-size: 20pt;
   font-family: 'Oldenburg', cursive;
   width: 25%;
   height: 5vh;
@@ -58,4 +61,5 @@
 
 #emp-button:hover{
     border: 2px solid white;
+    color: white;
 }
