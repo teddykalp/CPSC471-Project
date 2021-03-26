@@ -35,8 +35,6 @@ app.get('/payHistory', function(req,res){
 })
 
 
-
-
 app.get('/employees', function(req,res){
   res.send(employees);
 });
