@@ -34,14 +34,22 @@ app.get('/payHistory', function(req,res){
 	 res.sendFile(__dirname + '/payHistory.html');
 })
 
+app.get('/scheduleManager', function(req,res){
+	 res.sendFile(__dirname + '/scheduleManager.html');
+})
+
+app.get('/addSchedule', function(req,res){
+	 res.sendFile(__dirname + '/addSchedule.html');
+})
+
 
 app.get('/employees', function(req,res){
   res.send(employees);
 });
 
-app.get('/employees/:id/', function(req,res){
+app.get('/employees/empId=:id/', function(req,res){
 
-  //console.log([req.params.id]);
+  console.log([req.params.id]);
   var result = ""
   for (var i = 0; i < employees.length; i++){
     if (employees[i]["id"] == [req.params.id]){

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Manager Schedule</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oldenburg&family=Actor&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="jumbotron text-center" id = "top-banner">
+        <h4 id = "created">A CPSC471 Project created by Stephen Dios, Charlene Madayag, and Teddy Kalp</h4>
+    </div>
+    <div class = "row">
+      <div class = "col-sm-6 text-left">
+          <img src="imgs/logo" alt="Work It Logo" width = "40%">
+      </div>
+      <div class = "col-sm-6 text-right">
+          <button class = "searchSchedule" type="text" name="button" style = "margin-right: 2%">Add New Schedule</button>
+      </div>
+    </div>
+    <div id = "managerSchedule">
+      <div class="row text-center">
+        <h1 class = "headings">My Schedule</h1>
+      </div>
+      <div class="row text-center">
+        <h4 class = "headings">Please Enter your Employee ID to view your Schedule</h4>
+        <input type="text" id = "payEmployeeID" placeholder="Employee ID"><br><br>
+        <button class = "searchSchedule">See Your Schedule</button>
+      </div>
+      <br><br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col">Total hours</th>
+          </tr>
+        </thead>
+      <tbody>
+        <tr>
+          <th>March 26 2021</th>
+          <td>9:00 AM</td>
+          <td>5:00 PM</td>
+          <td>8</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class = "row text-right">
+      <button class = "searchSchedule" id = "employeeSchedule-btn" style = "margin-right: 2%;">See Your Employees' Schedule</button>
+    </div>
+  </div>
+  <div id = "employeeSchedule">
+    <div class="row text-center">
+      <h1 class = "headings">My Employees' Schedule</h1>
+    </div>
+    <div class="row text-center">
+      <h4 class = "headings">Please Enter your Employee ID to view your Schedule</h4>
+      <input type="text" id = "payEmployeeID" placeholder="Employee ID"><br><br>
+      <button class = "searchSchedule">See Employees' Schedule</button>
+    </div>
+    <br><br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">Total hours</th>
+          <th scope="col">EmployeeId</th>
+          <th scope="col">Name</th>
+          <th scope="col">Department</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr>
+        <th>March 26 2021</th>
+        <td>9:00 AM</td>
+        <td>5:00 PM</td>
+        <td>8</td>
+        <td>6969</td>
+        <td>Teddy Kalp</td>
+        <td>Pharmacy</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class = "row text-right">
+    <button class = "searchSchedule" style = "margin-right: 2%;" id = "managerSchedule-btn">See Your Schedule</button>
+  </div>
+  </div>
+  <script src = "scheduleManager.js"></script>
+  </body>
+</html>

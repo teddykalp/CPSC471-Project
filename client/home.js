@@ -9,8 +9,9 @@ $(function(){
     }
     else{
       //window.location.href = window.location.href.replace("home.html","employee.html");
+      var request = "/employees/empId=" + empId;
       $.ajax({
-        url: "/employees/"+ empId,
+        url: request,
         contentType: 'application/json',
         success: function(response){
           // on failure of logging in

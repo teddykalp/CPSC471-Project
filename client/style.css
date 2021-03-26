@@ -105,3 +105,27 @@ i {
 .employeeOps{
   font-family: 'Poppins', sans-serif;
 }
+
+.searchSchedule{
+  background-color: #FBD44B;
+  font-size: 100%;
+  font-family: 'Oldenburg', cursive;
+}
+
+.searchSchedule:hover{
+  border: 2px solid #F2AE29;
+  color: white;
+}
+
+.addSchedule{
+  font-family: 'Actor', sans-serif;
+  margin-top: 2%;
+  width: 50%;
+}
+
+#add-schedule-btn{
+  background-color: #FBD44B;
+  font-size: 100%;
+  width: 40%;
+  font-family: 'Oldenburg', cursive;
+}
