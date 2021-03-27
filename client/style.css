@@ -123,9 +123,15 @@ i {
   width: 50%;
 }
 
-#add-schedule-btn{
+.submit-btn{
+  margin-top: 2%;
   background-color: #FBD44B;
   font-size: 100%;
   width: 40%;
   font-family: 'Oldenburg', cursive;
+}
+
+.submit-btn:hover{
+  border: 2px solid #F2AE29;
+  color: white;
 }

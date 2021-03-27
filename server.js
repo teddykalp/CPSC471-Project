@@ -42,6 +42,10 @@ app.get('/addSchedule', function(req,res){
 	 res.sendFile(__dirname + '/addSchedule.html');
 })
 
+app.get('/sendNotification', function(req,res){
+	 res.sendFile(__dirname + '/notification.html');
+})
+
 
 app.get('/employees', function(req,res){
   res.send(employees);
