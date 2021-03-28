@@ -17,13 +17,10 @@
   color: #FBD44B;
 }
 
-#managerLogin h3{
+#login h3{
   color: #FBD44B;
 }
 
-#employeeLogin h3{
-  color: #FBD44B;
-}
 
 #input-container {
   background-color: #FBD44B80;
@@ -71,7 +68,7 @@
   width: 80%;
   margin-top: 20%;
   margin-left: 20%;
-  height: 20vh;
+  height: 25vh;
   font-size: 200%;
   font-family: 'Oldenburg', cursive;
 }

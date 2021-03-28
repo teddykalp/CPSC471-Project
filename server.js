@@ -1,24 +1,55 @@
-var express = require("express");
+var DEBUG = true;
+
+// packages we're going to be using
+const mysql = require('mysql');
+const express = require('express');
+const bodyparser = require('body-parser');
+
+// Initialize the app
 var app = express();
 
-var employees = [
-  {
-      id: 2222,
-      name: "Teddy",
-      manager: true
-  },
-  {
-      id: 2221,
-      name: "Rob",
-      manager: false
-  }
-]
+// Establish the sql connection variables
+var mysqlConnection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'work_it',
+      multipleStatements: true
+});
 
+// Connect to sql
+mysqlConnection.connect((err)=> {
+  if(!err)
+  console.log('Connection Established Successfully');
+  else
+  console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+});
+
+
+// define the port number we will be connecting to
 var PORT = process.env.PORT || 3000;
 
+// Storing all client-side scripts in the ./client folder
 app.use(express.static(__dirname + '/client'));
+// Using the bodyparser for JSON objects
+app.use(bodyparser.json());
+
+// Application will be listening on port 3000
+app.listen(PORT, function(){
+  console.log("Server listening on Port " + PORT);
+});
 
 app.get('/', function(req, res){
+    // this a test query, all this does is get all the data from the branch table and print
+    // it to the console
+    if (DEBUG){
+      mysqlConnection.query('SELECT * FROM Branch', (err, rows, fields) => {
+        if (!err)
+          console.log(rows);
+        else
+        console.log(err);
+      })
+    }
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -65,15 +96,23 @@ app.get('/employees/empId=:id/', function(req,res){
   res.send(result);
 });
 
+
+var employees = [
+  {
+      id: 2222,
+      name: "Teddy",
+      manager: true
+  },
+  {
+      id: 2221,
+      name: "Rob",
+      manager: false
+  }
+]
+
 // app.get('/employees/:id/:name', function(req,res){
 //   console.log("2 Arguments clicked");
 //   console.log([req.params.id]);
 //   console.log([req.params.name]);
 //   res.send(employees);
 // });
-
-
-
-app.listen(PORT, function(){
-  console.log("Server listening on Port " + PORT);
-})
