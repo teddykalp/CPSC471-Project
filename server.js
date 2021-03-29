@@ -78,37 +78,22 @@ app.get('/sendNotification', function(req,res){
 })
 
 
-app.get('/employees', function(req,res){
-  res.send(employees);
-});
-
-app.get('/employees/empId=:id/', function(req,res){
-
-  console.log([req.params.id]);
-  var result = ""
-  for (var i = 0; i < employees.length; i++){
-    if (employees[i]["id"] == [req.params.id]){
-      console.log(employees[i]["manager"]);
-      result = employees[i];
-      break;
+app.get('/login/id=:id', function(req,res){
+  var id = [req.params.id][0];
+  var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
+  console.log(query);
+  mysqlConnection.query(query, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
     }
-  }
-  res.send(result);
+    else
+      console.log(err);
+  })
 });
 
 
-var employees = [
-  {
-      id: 2222,
-      name: "Teddy",
-      manager: true
-  },
-  {
-      id: 2221,
-      name: "Rob",
-      manager: false
-  }
-]
 
 // app.get('/employees/:id/:name', function(req,res){
 //   console.log("2 Arguments clicked");
