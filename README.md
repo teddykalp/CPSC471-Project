@@ -8,7 +8,9 @@ npm install
 
 ### Git commands:
 git add <filename> or git add .
+  
 git commit -m "some commit message"
+
 git push
 
 ### For bigger features work should be done on a seperate branch and tested before merging to master
