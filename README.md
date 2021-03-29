@@ -28,7 +28,7 @@ Run the command "node server.js" or "nodemon server.js"
 ## Connecting the client
 ### The following pages currently are dummy pages that have no implemented functionality
 
-PORT - The port number you see in your concolse when you run the server
+PORT - The port number you see in your console when you run the server
 
 localhost:PORT/ 
 
