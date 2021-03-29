@@ -81,8 +81,9 @@ app.get('/sendNotification', function(req,res){
 app.get('/login/id=:id', function(req,res){
   var id = [req.params.id][0];
   var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
-  console.log(query);
-  mysqlConnection.query(query, (err, rows, fields) => {
+  var call = `CALL EmployeeLogin(${id})`
+  console.log(call);
+  mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
       console.log("Sent the following data to client");
       console.log(rows);
