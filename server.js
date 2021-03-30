@@ -40,16 +40,6 @@ app.listen(PORT, function(){
 });
 
 app.get('/', function(req, res){
-    // this a test query, all this does is get all the data from the branch table and print
-    // it to the console
-    if (DEBUG){
-      mysqlConnection.query('SELECT * FROM Branch', (err, rows, fields) => {
-        if (!err)
-          console.log(rows);
-        else
-        console.log(err);
-      })
-    }
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -80,7 +70,7 @@ app.get('/sendNotification', function(req,res){
 
 app.get('/login/id=:id', function(req,res){
   var id = [req.params.id][0];
-  var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
+  //var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
   var call = `CALL EmployeeLogin(${id})`
   console.log(call);
   mysqlConnection.query(call, true, (err, rows, fields) => {
@@ -91,7 +81,22 @@ app.get('/login/id=:id', function(req,res){
     }
     else
       console.log(err);
-  })
+  });
+});
+
+app.get("/getEmployees/id=:id", function(req,res){
+  var id = [req.params.id][0];
+  console.log(id);
+  var call = `CALL ManangeEmployees(${id})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
 });
 
 
