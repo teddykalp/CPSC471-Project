@@ -68,6 +68,7 @@ app.get('/sendNotification', function(req,res){
 })
 
 
+// on login, query the database for an id the user entered
 app.get('/login/id=:id', function(req,res){
   var id = [req.params.id][0];
   //var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
@@ -84,6 +85,7 @@ app.get('/login/id=:id', function(req,res){
   });
 });
 
+// view all employees for a manager or sub manager
 app.get("/getEmployees/id=:id", function(req,res){
   var id = [req.params.id][0];
   console.log(id);
@@ -97,6 +99,32 @@ app.get("/getEmployees/id=:id", function(req,res){
     else
       console.log(err);
   });
+});
+
+// update an employee's information
+app.put("/updateEmployee", function(req,res){
+  var data = req.body
+  var id = data["ID"];
+  var firstname = "\"" + data["First Name"] + "\"";;
+  var lastname = "\"" + data["Last Name"] + "\"";;
+  var email = "\"" + data["Email"] + "\"";;
+  var phone = "\"" + data["Phone"] + "\"";
+  var dept = data["Dept"];
+  var call = `CALL UpdateEmployee(${id},${firstname},${lastname},${phone},${email},${dept})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log("error");
+  });
+});
+
+// delete an employee from the employee table
+app.delete("/deleteEmployee/id=:id", function(req,res){
+  var id = [req.params.id][0];
 });
 
 
