@@ -40,34 +40,8 @@ $(function(){
       "Dept": dept
     }
 
-    jsonData = JSON.stringify(data);
+    updateEmployee(data);
 
-    var request = "/updateEmployee";
-
-    $.ajax({
-      type: "PUT",
-      url: request,
-      data: jsonData,
-      contentType: 'application/json',
-      dataType: 'json',
-      success: function(response){
-        console.log(response)
-        if (response === "error")
-        {
-          console.log("Something went wrong")
-        }
-        else if (response["affectedRows"] < 1)
-        {
-          console.log("Nothing changed")
-        }
-        else
-        {
-          console.log("Changed worked");
-          $('#search-msg').text("Successfully Updated Employee");
-          $('#search-msg').css("color", "green");
-        }
-      }
-    });
     // on success change the Button
     $(this).closest('tr').find('.edit').show();
     $(this).hide();
@@ -118,9 +92,8 @@ $(function(){
     var email = $('#addEmployeeEmail').val();
     var phone = $('#addEmployeePhone').val();
     var role = $('input[name="manager"]:checked').val();
-    var pay = $('input[name="pay"]:checked').val();
+    var wage = $('#addPay').val();
     var dept = $('#addDepartmentNumber').val();
-
     $('#add-error').css('color', 'red');
 
     if (firstname === ""){
@@ -132,7 +105,7 @@ $(function(){
     else if (email === "" || !validateEmail(email)){
       $('#add-error').text('Please enter a valid email');
     }
-    else if (phone === "" || !validatePhone(phone))
+    else if (phone === "")
     {
       $('#add-error').text('Please enter a valid phone');
     }
@@ -140,15 +113,44 @@ $(function(){
     {
       $('#add-error').text('Please select a role');
     }
-    else if(pay === "")
-    {
-      $('#add-error').text('Please select type of pay');
+    else if (wage === ""){
+      $('#add-error').text('Please enter a wage');
     }
     else if(dept === ""){
       $('#add-error').text('Please enter department number');
     }
+    else
+    {
+      var isManager = false;
+      var isWorker = false;
+      var salary = false
+      // what type of role is the employee
+      if (role === "manager"){
+        isManager = true
+      }
+      else{
+        isWorker = true;
+      }
 
-    else{
+       var employeeToAdd = {
+         "Manager EID": localStorage.getItem("id"),
+         "EID": 0,
+         "First Name": firstname,
+         "Last Name": lastname,
+         "Email": email,
+         "Phone": phone,
+         "Salary": salary,
+         "Manager": false,
+         "Sub_Manager": isManager,
+         "Worker": isWorker,
+         "Pay": 0,
+         "Wage_hr": wage,
+         "Branch_id": localStorage.getItem("branch"),
+         "Dept_Num": dept,
+         "Store_Name": localStorage.getItem("store")
+       }
+
+       addEmployee(employeeToAdd);
        $('.modal').modal('hide')
        $('.modal-body').find('input:text').val('');
        $('.modal-body').find('input:radio').prop('checked', false);
@@ -201,10 +203,63 @@ $(function(){
       });
   }
 
+  function addEmployee(data){
+    jsonData = JSON.stringify(data);
+    console.log(jsonData);
+    var request = "/addEmployee";
+    $.ajax({
+      type: "POST",
+      url: request,
+      data: jsonData,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(response){
+        console.log(response);
+      }
+    });
+  }
+
+  function updateEmployee(data){
+    jsonData = JSON.stringify(data);
+
+    var request = "/updateEmployee";
+
+    $.ajax({
+      type: "PUT",
+      url: request,
+      data: jsonData,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(response){
+        console.log(response)
+        if (response === "error")
+        {
+          console.log("Something went wrong")
+        }
+        else if (response["affectedRows"] < 1)
+        {
+          console.log("Nothing changed")
+        }
+        else
+        {
+          console.log("Changed worked");
+          $('#search-msg').text("Successfully Updated Employee");
+          $('#search-msg').css("color", "green");
+        }
+      }
+    });
+  }
+
+  function deleteEmployee(data){
+
+  }
+
   function validateEmail(email) {
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailReg.test(email);
     /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g
   }
+
+
 
 })

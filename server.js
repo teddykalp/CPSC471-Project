@@ -127,6 +127,40 @@ app.delete("/deleteEmployee/id=:id", function(req,res){
   var id = [req.params.id][0];
 });
 
+app.post("/addEmployee", function(req,res){
+  var data = req.body ;
+  var manager_id = data["Manager EID"];
+  var eid = data["EID"];
+  var firstname = "\"" + data["First Name"] + "\"";;
+  var lastname = "\"" + data["Last Name"] + "\"";;
+  var email = "\"" + data["Email"] + "\"";;
+  var phone = "\"" + data["Phone"] + "\"";
+  var salary = data["Salary"];
+  var is_manager = false
+  var is_sub_manager = data["Sub_Manager"];
+  var is_worker = data["Worker"];
+  var pay = data["Pay"];
+  var wage = data["Wage_hr"];
+  var branch = data["Branch_id"];
+  var dept = data["Dept_Num"];
+  var store = "\"" + data["Store_Name"] + "\"";
+
+  var call = `CALL AddEmployee(${manager_id},${eid},${firstname},${lastname},${email},  ${phone},${salary},${is_manager},${is_sub_manager},${is_worker},${pay},${wage}, ${branch},${dept},${store})`;
+  console.log(call);
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+
+
+});
+
+
 
 
 // app.get('/employees/:id/:name', function(req,res){

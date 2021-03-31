@@ -23,14 +23,20 @@ $(function(){
           }
           else{
             var employeeData = response[0][0];
-            console.log(employeeData);
             if (employeeData["Manager"] == 1 || employeeData["Sub_Manager"] == 1){
+              console.log(employeeData);
               var name = employeeData["First_Name"];
               var id = employeeData["EID"];
-              console.log(name);
-              console.log(id);
+              var branch = employeeData["Branch_id"];
+              var store_name = employeeData["Store_Name"];
+
               localStorage.setItem("name", name);
               localStorage.setItem("id", id);
+              localStorage.setItem("branch", branch);
+              localStorage.setItem("store", store_name);
+
+              var branch = localStorage.getItem("branch");
+
               window.location.href = window.location.href + "manager";
               // console.log("Manager entered")
               }

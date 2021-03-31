@@ -1,9 +1,13 @@
 $(function(){
   var name = localStorage.getItem("name");
   var id = localStorage.getItem("id");
+  var branch = localStorage.getItem("branch");
+  var store = localStorage.getItem("store");
 
   console.log(name);
   console.log(id);
+  console.log(branch);
+  console.log(store);
 
   $('#welcomeName').text(`Welcome ${name}`)
 
