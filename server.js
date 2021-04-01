@@ -161,9 +161,13 @@ app.post("/addEmployee", function (req, res) {
 });
 
 app.get('/work_it/schedule', (req, res) => {
+  var eid = req.params.EID;
   mysqlConnection.query('SELECT * FROM schedule', (err, rows, fields) => {
-    if (!err)
+    if (!err) {
+      //how do we get the sid
+
       res.send(rows);
+    }
     else
       console.log(err);
   })
