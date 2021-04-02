@@ -16,54 +16,36 @@
         <h4 id = "created">A CPSC471 Project created by Stephen Dios, Charlene Madayag, and Teddy Kalp</h4>
     </div>
     <div class = "row">
-      <div class = "col-sm-6 text-left">
-          <img src="imgs/logo" alt="Work It Logo" width = "40%">
+      <div class = "col-sm-3 text-left">
+          <img src="imgs/logo" alt="Work It Logo" width = "80%">
       </div>
-      <div class = "col-sm-6 text-right">
-          <button class = "searchSchedule" type="text" name="button" style = "margin-right: 2%">Add New Schedule</button>
+      <div class = "col-sm-6 text-center">
+        <h1 class = "headings" id = "scheduleHeader">My Schedule</h1>
+      </div>
+      <div class = "col-sm-2 text-right">
+        <button type="button" class="btn searchSchedule" data-toggle="modal" data-target="#exampleModal">
+        Add Schedule
+        </button>
       </div>
     </div>
     <div id = "managerSchedule">
-      <div class="row text-center">
-        <h1 class = "headings">My Schedule</h1>
-      </div>
-      <div class="row text-center">
-        <h4 class = "headings">Please Enter your Employee ID to view your Schedule</h4>
-        <input type="text" id = "mySchedule" placeholder="Employee ID"><br><br>
-        <button class = "searchSchedule">See Your Schedule</button>
-      </div>
       <br><br>
-      <table class="table">
+      <table class="table"  id = "schedTable">
         <thead>
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
-            <th scope="col">Total hours</th>
           </tr>
         </thead>
       <tbody>
-        <tr>
-          <th>March 26 2021</th>
-          <td>9:00 AM</td>
-          <td>5:00 PM</td>
-          <td>8</td>
-        </tr>
       </tbody>
     </table>
     <div class = "row text-right">
-      <button class = "searchSchedule" id = "employeeSchedule-btn" style = "margin-right: 2%;">See Your Employees' Schedule</button>
+      <button class = "btn searchSchedule" id = "employeeSchedule-btn" style = "margin-right: 2%;">See Your Employees' Schedule</button>
     </div>
   </div>
   <div id = "employeeSchedule">
-    <div class="row text-center">
-      <h1 class = "headings">My Employees' Schedule</h1>
-    </div>
-    <div class="row text-center">
-      <h4 class = "headings">Please Enter your Employee ID to view your Schedule</h4>
-      <input type="text" id = "employeeSchedule" placeholder="Employee ID"><br><br>
-      <button class = "searchSchedule">See Employees' Schedule</button>
-    </div>
     <br><br>
     <table class="table">
       <thead>
@@ -71,7 +53,6 @@
           <th scope="col">Date</th>
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
-          <th scope="col">Total hours</th>
           <th scope="col">EmployeeId</th>
           <th scope="col">Name</th>
           <th scope="col">Department</th>
@@ -95,4 +76,25 @@
   </div>
   <script src = "scheduleManager.js"></script>
   </body>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Schedule</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input class = "addSchedule" type="text" id = "scheduleEmployeeId" placeholder="Employee ID*"><br>
+          <input class = "addSchedule" type="text" id = "scheduleDate" placeholder="Date YYYY-MM-DD*"><br>
+          <input class = "addSchedule" type="text" id = "scheduleStartTime" placeholder="Start Time HH:MM AM/PM*"><br>
+          <input class = "addSchedule" type="text" id = "scheduleEndTime" placeholder="End Time HH:MM AM/PM*"><br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" id = "confirm-add">Confirm Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>

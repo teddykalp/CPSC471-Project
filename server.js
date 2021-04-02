@@ -31,6 +31,7 @@ var PORT = process.env.PORT || 3000;
 
 // Storing all client-side scripts in the ./client folder
 app.use(express.static(__dirname + '/client'));
+
 // Using the bodyparser for JSON objects
 app.use(bodyparser.json());
 
@@ -72,7 +73,7 @@ app.get('/sendNotification', function(req,res){
 app.get('/login/id=:id', function(req,res){
   var id = [req.params.id][0];
   //var query = 'SELECT * FROM Employee WHERE EID ='.concat(id);
-  var call = `CALL EmployeeLogin(${id})`
+  var call = `CALL EmployeeLogin(${id})`;
   console.log(call);
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
@@ -105,9 +106,9 @@ app.get("/getEmployees/id=:id", function(req,res){
 app.put("/updateEmployee", function(req,res){
   var data = req.body
   var id = data["ID"];
-  var firstname = "\"" + data["First Name"] + "\"";;
-  var lastname = "\"" + data["Last Name"] + "\"";;
-  var email = "\"" + data["Email"] + "\"";;
+  var firstname = "\"" + data["First Name"] + "\"";
+  var lastname = "\"" + data["Last Name"] + "\"";
+  var email = "\"" + data["Email"] + "\"";
   var phone = "\"" + data["Phone"] + "\"";
   var dept = data["Dept"];
   var call = `CALL UpdateEmployee(${id},${firstname},${lastname},${phone},${email},${dept})`;
@@ -144,7 +145,6 @@ app.post("/addEmployee", function(req,res){
   var branch = data["Branch_id"];
   var dept = data["Dept_Num"];
   var store = "\"" + data["Store_Name"] + "\"";
-
   var call = `CALL AddEmployee(${manager_id},${eid},${firstname},${lastname},${email},  ${phone},${salary},${is_manager},${is_sub_manager},${is_worker},${pay},${wage}, ${branch},${dept},${store})`;
   console.log(call);
   mysqlConnection.query(call, true, (err, rows, fields) => {
@@ -156,10 +156,22 @@ app.post("/addEmployee", function(req,res){
     else
       console.log(err);
   });
-
-
 });
 
+app.get('/verifySchedule/id=:id&date=:date', function(req,res){
+  id = ([req.params.id][0])
+  date = ([req.params.date][0])
+  var query = `SELECT * FROM SCHEDULE WHERE EID = ${id} AND DATE = ${date}`
+  mysqlConnection.query(query, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
 
 
 

@@ -84,7 +84,7 @@ $(function(){
         console.log("Cancelled Deletion");
     }
 
-  })
+  });
 
   $(document).on('click', '#confirm-add',function(e){
     var firstname = $('#addEmployeeFirstName').val();
@@ -151,6 +151,7 @@ $(function(){
        }
 
        addEmployee(employeeToAdd);
+       window.location.reload(true);
        $('.modal').modal('hide')
        $('.modal-body').find('input:text').val('');
        $('.modal-body').find('input:radio').prop('checked', false);
