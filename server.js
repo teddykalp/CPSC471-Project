@@ -160,20 +160,36 @@ app.post("/addEmployee", function (req, res) {
 
 });
 
-app.get('/work_it/schedule', (req, res) => {
-  var eid = req.params.EID;
-  mysqlConnection.query('SELECT * FROM schedule', (err, rows, fields) => {
+app.get('/work_it/schedule/:id', function (req, res) {
+  var id = [req.params.id][0];
+  var query = 'SELECT * FROM schedule WHERE EID = ?';
+  mysqlConnection.query(query, id, (err, rows, fields) => {
     if (!err) {
-      //how do we get the sid
-
+      console.log("Sent the following data to client");
+      console.log(rows);
       res.send(rows);
     }
     else
       console.log(err);
-  })
+  });
 });
 
+/*
+app.get('/getSchedule/:id', function (req, res) {
+  var id = [req.params.id][0];
+  var query = 'SELECT * FROM schedule WHERE EID = ?';
+  mysqlConnection.query(query, id, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
 
+*/
 
 
 // app.get('/employees/:id/:name', function(req,res){
