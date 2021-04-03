@@ -1,6 +1,7 @@
 $(function () {
   $("#employeeSchedule").hide();
 
+  //larger schedule
   $("#employeeSchedule-btn").click(function () {
     $("#employeeSchedule").show();
     $("#managerSchedule").hide();
@@ -8,9 +9,19 @@ $(function () {
     
   })
 
+  $("#searchSchedule").click(function () {
+    console.log("Hit the search button!");
+  })
+
+  function loadManagerSchedule(data) {
+
+  }
+
+  //smaller schedule
   $("#managerSchedule-btn").click(function () {
     $("#employeeSchedule").hide();
     $("#managerSchedule").show();
+    console.log("Manager Schedule");
   })
 });
 
