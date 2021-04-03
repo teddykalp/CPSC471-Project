@@ -4,6 +4,8 @@ $(function () {
   $("#employeeSchedule-btn").click(function () {
     $("#employeeSchedule").show();
     $("#managerSchedule").hide();
+
+    
   })
 
   $("#managerSchedule-btn").click(function () {

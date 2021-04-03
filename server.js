@@ -160,9 +160,10 @@ app.post("/addEmployee", function (req, res) {
 
 });
 
+
+//TODO needs a check for if this id does not exist
 app.get('/getSchedule/:id', function (req, res) {
   var id = [req.params.id];
-  //var query = 'SELECT * FROM schedule WHERE EID = ?';
   var call = `CALL getSchedule(${id})`;
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
@@ -174,23 +175,6 @@ app.get('/getSchedule/:id', function (req, res) {
       console.log(err);
   });
 });
-
-/*
-app.get('/getSchedule/:id', function (req, res) {
-  var id = [req.params.id][0];
-  var query = 'SELECT * FROM schedule WHERE EID = ?';
-  mysqlConnection.query(query, id, (err, rows, fields) => {
-    if (!err) {
-      console.log("Sent the following data to client");
-      console.log(rows);
-      res.send(rows);
-    }
-    else
-      console.log(err);
-  });
-});
-
-*/
 
 
 // app.get('/employees/:id/:name', function(req,res){
