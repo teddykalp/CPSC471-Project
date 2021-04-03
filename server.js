@@ -173,6 +173,20 @@ app.get('/verifySchedule/id=:id&date=:date', function(req,res){
   });
 });
 
+app.get('/getSchedule/id=:id', function (req, res) {
+  var id = [req.params.id];
+  var call = `CALL getSchedule(${id})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
 
 
 // app.get('/employees/:id/:name', function(req,res){

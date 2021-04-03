@@ -186,7 +186,7 @@ $(function(){
         var email = (item["Email"]);
         var phone = (item["Phone"]);
         var dept = (item["Dept_Num"]);
-        var to_add = `<tr><td>${eid}</td><td>${firstname}</td><td>${lastname}</td><td>${email}</td><td>${phone}</td><td>${dept}</td><td><button class = "edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
+        var to_add = `<tr><td>${eid}</td><td>${firstname}</td><td>${lastname}</td><td>${email}</td><td>${phone}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
         $('#searchTable').append(to_add);
     });
   }

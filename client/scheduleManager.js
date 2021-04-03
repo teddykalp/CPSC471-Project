@@ -1,16 +1,23 @@
 $(function(){
+  var name = localStorage.getItem("name");
+  var id = localStorage.getItem("id");
   $("#employeeSchedule").hide();
+  $('#managerSchedule-btn').hide()
 
   $("#employeeSchedule-btn").click(function(){
     $("#employeeSchedule").show();
     $("#managerSchedule").hide();
     $('#scheduleHeader').text("My Employees' Schedule");
+    $('#managerSchedule-btn').show()
+    $("#employeeSchedule-btn").hide()
   })
 
   $("#managerSchedule-btn").click(function(){
     $("#employeeSchedule").hide();
     $("#managerSchedule").show();
-      $('#scheduleHeader').text("My Schedule");
+    $('#scheduleHeader').text("My Schedule");
+    $('#managerSchedule-btn').hide()
+    $("#employeeSchedule-btn").show()
   })
 
   loadData();
@@ -102,72 +109,35 @@ $(function(){
 
   });
 
+  $(document).on('click', '.sendNotification', function(e){
+    $('#sendNotificationModel').modal('show');
+  });
+
   function loadData(){
-    var entry1 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM"
-    }
-    var entry2 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM"
-    }
-    var entry3 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM"
-    }
 
-    var entries = []
-    entries.push(entry1)
-    entries.push(entry2)
-    entries.push(entry3)
-    addContents(entries)
-
-
-    var entry1 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM",
-      "EID": 2222,
-      "Name": 'Teddy',
-      "Department": "Pharmacy"
-    }
-    var entry2 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM",
-      "EID": 2222,
-      "Name": 'Teddy',
-      "Department": "Pharmacy"
-    }
-    var entry3 = {
-      "Date": "2020-01-02",
-      "Start_Time": "9:00 AM",
-      "End_Time": "5:00 PM",
-      "EID": 2222,
-      "Name": 'Teddy',
-      "Department": "Pharmacy"
-    }
-
-    var entries = []
-    entries.push(entry1)
-    entries.push(entry2)
-    entries.push(entry3)
-    addEmployeeContents(entries)
+    var request = "/getSchedule/id=" + id;
+    $.ajax({
+      type: "GET",
+      url: request,
+      contentType: 'application/json',
+      success: function(response){
+        var res = response[0];
+        console.log(res);
+        addContents(res);
+        }
+      });
   }
 
   function addEmployeeContents(data){
     data.forEach((item, i) => {
-      var date = (item["Date"]);
+      var date = (item["Date"].substring(0,10));
       var start = (item["Start_Time"]);
       var end = (item["End_Time"]);
       var eid = (item["EID"]);
       var name = (item["Name"]);
       var dept = (item["Department"]);
 
-      var to_add = `<tr><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${name}</td><td>${dept}</td><td><button class = "editEmployee"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "doneEmployee" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
+      var to_add = `<tr><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${name}</td><td>${dept}</td><td><button class = "btn editEmployee"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn doneEmployee" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
       $('#empSchedule').append(to_add);
     });
 
@@ -180,14 +150,14 @@ $(function(){
         var today = false
         var future = false
 
-        var date = (item["Date"]);
+        var date = (item["Date"].substring(0,10));
         var parsedDate = Date.parse(date);
         var today_date = new Date();
 
 
         var start = (item["Start_Time"]);
         var end = (item["End_Time"]);
-        var to_add = `<tr style = 'background-color:'><td>${date}</td><td>${start}</td><td>${end}</td><td><button class = "edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
+        var to_add = `<tr style = 'background-color:'><td>${date}</td><td>${start}</td><td>${end}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
         console.log(to_add)
         $('#schedTable').append(to_add);
     });
