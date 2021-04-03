@@ -160,10 +160,11 @@ app.post("/addEmployee", function (req, res) {
 
 });
 
-app.get('/work_it/schedule/:id', function (req, res) {
-  var id = [req.params.id][0];
-  var query = 'SELECT * FROM schedule WHERE EID = ?';
-  mysqlConnection.query(query, id, (err, rows, fields) => {
+app.get('/getSchedule/:id', function (req, res) {
+  var id = [req.params.id];
+  //var query = 'SELECT * FROM schedule WHERE EID = ?';
+  var call = `CALL getSchedule(${id})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
       console.log("Sent the following data to client");
       console.log(rows);
