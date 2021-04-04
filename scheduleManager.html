@@ -35,10 +35,12 @@
       </div>
     </div>
     <div id = "managerSchedule">
+      <p id = "schedule-msg"></p>
       <br><br>
-      <table class="table"  id = "schedTable">
+      <table class="table"  id = "schedTable" style = 'width: 200%;'>
         <thead>
           <tr>
+            <th scope="col">ScheduleID</th>
             <th scope="col">Date</th>
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
@@ -53,11 +55,12 @@
     <table class="table" id = "empSchedule">
       <thead>
         <tr>
+          <th scope="col">ScheduleID</th>
           <th scope="col">Date</th>
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
-          <th scope="col">EmployeeId</th>
-          <th scope="col">Name</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
           <th scope="col">Department</th>
         </tr>
       </thead>
@@ -77,10 +80,13 @@
           </button>
         </div>
         <div class="modal-body">
-          <input class = "addSchedule" type="text" id = "scheduleEmployeeId" placeholder="Employee ID*"><br>
-          <input class = "addSchedule" type="text" id = "scheduleDate" placeholder="Date YYYY-MM-DD*"><br>
-          <input class = "addSchedule" type="text" id = "scheduleStartTime" placeholder="Start Time HH:MM AM/PM*"><br>
-          <input class = "addSchedule" type="text" id = "scheduleEndTime" placeholder="End Time HH:MM AM/PM*"><br>
+          <input class = "addSchedule" type="text" id = "scheduleEmployeeId" placeholder="Employee ID*"><br><br>
+          <br><label for="scheduleStartTime">Date</label><br>
+          <input class = "addSchedule" type="date" id = "scheduleDate" placeholder="Date YYYY-MM-DD*"><br>
+          <br><label for="scheduleStartTime">Start Time</label><br>
+          <input class = "addSchedule" type="time" id = "scheduleStartTime" placeholder="Start Time HH:MM AM/PM*"><br>
+          <br><label for="scheduleEndTime">End Time</label><br>
+          <input class = "addSchedule" type="time" id = "scheduleEndTime" placeholder="End Time HH:MM AM/PM*"><br>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-warning" id = "confirm-add">Confirm Add</button>

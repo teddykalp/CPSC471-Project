@@ -161,23 +161,6 @@ $(function(){
   })
 
 
-  $('#clear-btn').click(function(){
-    console.log("Clear Clicked")
-    $('#searchArea').hide();
-  });
-
-  $('#delete-btn').click(function(){
-    console.log("Delete Clicked")
-  });
-
-  $('#add-btn').click(function(){
-    console.log("Add Clicked")
-  });
-
-  $('#update-btn').click(function(){
-    console.log("Update Clicked")
-  });
-
   function addContents(data){
     data.forEach((item, i) => {
         var eid = (item["EID"]);

@@ -127,7 +127,7 @@ app.put("/updateEmployee", function(req,res){
 app.delete("/deleteEmployee/id=:id", function(req,res){
   var id = [req.params.id][0];
 });
-
+// an an employee to the employee table who is managed by the manager who is adding the employee
 app.post("/addEmployee", function(req,res){
   var data = req.body ;
   var manager_id = data["Manager EID"];
@@ -158,6 +158,7 @@ app.post("/addEmployee", function(req,res){
   });
 });
 
+// verify when employee clocks in, if they are working on a particular day
 app.get('/verifySchedule/id=:id&date=:date', function(req,res){
   id = ([req.params.id][0])
   date = ([req.params.date][0])
@@ -173,9 +174,55 @@ app.get('/verifySchedule/id=:id&date=:date', function(req,res){
   });
 });
 
+// getting schedule for a particular eid
 app.get('/getSchedule/id=:id', function (req, res) {
   var id = [req.params.id];
   var call = `CALL getSchedule(${id})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
+// getting schedules for employess managed by a particular eid
+app.get('/getEmployeeSchedule/id=:id', function (req, res) {
+  var id = [req.params.id];
+  var call = `CALL getEmployeeSchedule(${id})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
+// manager adding a schedule entry for an employee
+app.post('/addSchedule', function (req, res) {
+  var data = req.body;
+
+});
+
+// manager updating a schedule entry for an employee
+app.put('/updateSchedule', function (req, res) {
+  var data = req.body;
+
+  var sid = data["SID"];
+  var date = "\"" + data["Date"] + "\"";
+  var startTime = "\"" + data["Start_Time"] + "\"";
+  var endTime = "\"" + data["End_Time"] + "\"";
+  var eid = data["Manager"];
+
+
+  var call = `CALL updateSchedule(${sid}, ${date}, ${startTime}, ${endTime}, ${eid})`
+    console.log(call);
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
       console.log("Sent the following data to client");
