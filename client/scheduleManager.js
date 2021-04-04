@@ -115,6 +115,59 @@ $(function(){
     $('#sendNotificationModel').modal('show');
   });
 
+  $(document).on('click', '#confirm-add-schedule', function(e){
+    if( $("#scheduleEmployeeId").val() === "")
+    {
+      $("#schedule-error").text('eid not entered')
+    }
+    else if($("#scheduleDate").val() === ""){
+      $("#schedule-error").text('date not entered')
+    }
+    else if ($("#scheduleStartTime").val() === ""){
+      $("#schedule-error").text("start time not entered")
+    }
+    else if($("#scheduleEndTime").val() == ""){
+      $("#schedule-error").text("end time not entered")
+    }
+    else
+    {
+      $("#schedule-error").text("");
+
+      var eid = $("#scheduleEmployeeId").val()
+      var date = $("#scheduleDate").val()
+      var startHour = parseInt($("#scheduleStartTime").val().substring(0,2));
+      var suffix = "AM"
+      if (startHour > 12){
+        startHour = startHour - 12
+        suffix = "PM"
+      }
+      var startTime = startHour + $("#scheduleStartTime").val().substring(2,$("#scheduleStartTime").val().length) + ":00 " + suffix
+      console.log(startTime);
+      var endHour = parseInt($("#scheduleEndTime").val().substring(0,2));
+      suffix = "AM"
+      if (endHour > 12){
+        endHour = endHour - 12
+        suffix = "PM"
+      }
+      var endTime = endHour + $("#scheduleEndTime").val().substring(2,$("#scheduleEndTime").val().length) + ":00 " + suffix
+      console.log(endTime)
+
+      var schedule = {
+        "EID": eid,
+        "Date": date,
+        "Start_Time": startTime,
+        "End_Time": endTime,
+        "Created": id
+      }
+
+      addSchedule(schedule);
+      $('#addEmployeeModel').modal('hide')
+      $('.modal-body').find('input:text').val('');
+      $('.modal-body').find('input:date').val('');
+      $('.modal-body').find('input:time').val('');
+    }
+  });
+
   function loadData(){
 
     var request = "/getSchedule/id=" + id;
@@ -221,5 +274,34 @@ $(function(){
 
 
     });
+  }
+
+  function addSchedule(data){
+    var jsonData = JSON.stringify(data);
+    var request = "/addSchedule"
+    $.ajax({
+      type: "POST",
+      url: request,
+      data: jsonData,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(response){
+        console.log(response)
+        if (response === "error")
+        {
+          console.log("Something went wrong")
+        }
+        else if (response["affectedRows"] < 1)
+        {
+          console.log("Nothing changed")
+        }
+        else
+        {
+          console.log("Changed worked");
+          $('#schedule-msg').text("Successfully Added Schedule");
+          $('#schedule-msg').css("color", "green");
+        }
+        }
+      });
   }
 });

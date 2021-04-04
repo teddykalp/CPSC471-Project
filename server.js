@@ -207,7 +207,22 @@ app.get('/getEmployeeSchedule/id=:id', function (req, res) {
 // manager adding a schedule entry for an employee
 app.post('/addSchedule', function (req, res) {
   var data = req.body;
+  var date = "\"" + data["Date"] + "\"";
+  var startTime = "\"" + data["Start_Time"] + "\"";
+  var endTime = "\"" + data["End_Time"] + "\"";
+  var eid = data["EID"];
+  var created = data["Created"];
 
+  var call = `CALL addSchedule(${date}, ${startTime}, ${endTime}, ${eid}, ${created})`
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
 });
 
 // manager updating a schedule entry for an employee
