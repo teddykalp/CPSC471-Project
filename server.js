@@ -137,6 +137,7 @@ app.delete("/deleteEmployee/id=:id", function(req,res){
       console.log("ERROR");
   });
 });
+
 // an an employee to the employee table who is managed by the manager who is adding the employee
 app.post("/addEmployee", function(req,res){
   var data = req.body ;

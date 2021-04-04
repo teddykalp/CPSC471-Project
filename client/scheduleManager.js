@@ -113,7 +113,28 @@ $(function(){
 
   $(document).on('click', '.sendNotification', function(e){
     $('#sendNotificationModel').modal('show');
+    var row = $(this).closest("tr"),       // Finds the closest row <tr>
+    tds = row.find("td");
+
+    var sid = $(tds[0]).text()
+    $('#notificationScheduleId').val(sid);
+    var eid = $(tds[4]).text()
+    $('#notificationEmployeeId').val(eid);
   });
+
+  $(document).on('click', '#confirm-send-notification', function(e){
+    if($('#notificationType').val() === ""){
+      console.log($('#notificationType').val())
+      console.log("please enter notification type")
+    }
+    else{
+      var sid = $('#notificationScheduleId').val();
+      var eid = $('#notificationEmployeeId').val();
+      var type = $('#notificationType').val();
+      var message = $('#message').val();
+      console.log(message);
+    }
+  })
 
   $(document).on('click', '#confirm-add-schedule', function(e){
     if( $("#scheduleEmployeeId").val() === "")
@@ -160,7 +181,6 @@ $(function(){
       $('.modal-body').find('input:text').val('');
       $('.modal-body').find('input:date').val('');
       $('.modal-body').find('input:time').val('');
-
       }
   });
 
@@ -255,6 +275,7 @@ $(function(){
       var date = (item["Date"].substring(0,10));
       var start = (item["Start_Time"]);
       var end = (item["End_Time"]);
+      var eid = (item["EID"]);
       var first_name = (item["First_Name"]);
       var last_name = (item["Last_Name"]);
       var dept = (item["Dep_Name"]);
@@ -270,7 +291,7 @@ $(function(){
       }
 
 
-      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
+      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
       $('#empSchedule').append(to_add);
     });
 

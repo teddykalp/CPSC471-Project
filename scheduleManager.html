@@ -59,6 +59,7 @@
           <th scope="col">Date</th>
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
+          <th scope="col">EID</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Department</th>
@@ -110,15 +111,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <input class = "addSchedule" type="text" id = "notificationManagerId" placeholder="Your Employee ID (Manager)*"><br>
-        <input class = "addSchedule" type="text" id = "notificationEmployeeId" placeholder="Employee ID*"><br>
-        <input class = "addSchedule" type="text" id = "notificationEmployeeFirstName" placeholder="Employee First Name*"><br>
-        <input class = "addSchedule" type="text" id = "notificationEmployeeLastName" placeholder="Employee Last Name*"><br>
-        <input class = "addSchedule" type="text" id = "notificationDate" placeholder="Date*"><br>
-        <input class = "addSchedule" type="text" id = "notificationStartTime" placeholder="Start Time*"><br>
+        <label for="notificationScheduleID">ScheduleID</label><br>
+        <input class = "addSchedule" type="text" id = "notificationScheduleId" placeholder="" readonly><br>
+        <label for="notificationEmployeeID">EmployeeID</label><br>
+        <input class = "addSchedule" type="text" id = "notificationEmployeeId" placeholder="" readonly><br>
+        <label for="notificationEmployeeID">Type of Notification</label><br>
+        <input list="typeNotification" name="typeNotification" id = "notificationType">
+        <datalist id="typeNotification">
+          <option value = "EMERGENCY SHIFT">
+          <option value = "UPCOMING SHIFT">
+          <option value = "FORGOT TO CLOCK">
+        </datalist><br>
+        <label for="notificationEmployeeID">Optional Message to Send</label><br>
+        <textarea id="message" rows="4" cols="50"></textarea>
         <div class = "modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-warning" id = "confirm-add">Confirm Add</button>
+          <button type="button" class="btn btn-warning" id = "confirm-send-notification">Send Notification</button>
         </div>
       </div>
     </div>
