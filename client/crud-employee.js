@@ -76,8 +76,9 @@ $(function(){
         tds = row.find("td");
 
         var eid = $(tds[0]).text()
+        deleteEmployee(eid);
         row.remove();
-        console.log(`Deleted the Employee ${eid}`);
+
     }
     else
     {
@@ -234,8 +235,24 @@ $(function(){
     });
   }
 
-  function deleteEmployee(data){
-
+  function deleteEmployee(eid){
+    var request = "/deleteEmployee/id="+eid
+    $.ajax({
+      type: "DELETE",
+      url: request,
+      contentType: 'application/json',
+      success: function(response){
+        if (response === "SUCCESS"){
+          console.log(response)
+          $("#search-msg").text("Successfully Deleted Employee");
+          $('#search-msg').css("color", "green");
+        }
+        else{
+          $("#search-msg").text("Something went wrong");
+          $('#search-msg').css("color", "red");
+        }
+      }
+    })
   }
 
   function validateEmail(email) {

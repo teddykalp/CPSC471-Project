@@ -125,7 +125,17 @@ app.put("/updateEmployee", function(req,res){
 
 // delete an employee from the employee table
 app.delete("/deleteEmployee/id=:id", function(req,res){
-  var id = [req.params.id][0];
+  var eid = [req.params.id][0];
+  var call = `CALL DeleteEmployee(${eid})`
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send("SUCCESS");
+    }
+    else
+      console.log("ERROR");
+  });
 });
 // an an employee to the employee table who is managed by the manager who is adding the employee
 app.post("/addEmployee", function(req,res){
@@ -238,6 +248,20 @@ app.put('/updateSchedule', function (req, res) {
 
   var call = `CALL updateSchedule(${sid}, ${date}, ${startTime}, ${endTime}, ${eid})`
     console.log(call);
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
+app.get('/payHistory/id=:id', function(req,res){
+  var id = [req.params.id][0];
+  var call = `CALL GetPayHistory(${id})`
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
       console.log("Sent the following data to client");

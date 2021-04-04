@@ -132,40 +132,36 @@ $(function(){
     else
     {
       $("#schedule-error").text("");
-
-      var eid = $("#scheduleEmployeeId").val()
+      var eid = $("#scheduleEmployeeId").val().substring(0,4)
       var date = $("#scheduleDate").val()
       var startHour = parseInt($("#scheduleStartTime").val().substring(0,2));
       var suffix = "AM"
       if (startHour > 12){
-        startHour = startHour - 12
-        suffix = "PM"
-      }
+          startHour = startHour - 12
+          suffix = "PM"
+        }
       var startTime = startHour + $("#scheduleStartTime").val().substring(2,$("#scheduleStartTime").val().length) + ":00 " + suffix
-      console.log(startTime);
       var endHour = parseInt($("#scheduleEndTime").val().substring(0,2));
       suffix = "AM"
       if (endHour > 12){
-        endHour = endHour - 12
-        suffix = "PM"
-      }
+          endHour = endHour - 12
+          suffix = "PM"
+        }
       var endTime = endHour + $("#scheduleEndTime").val().substring(2,$("#scheduleEndTime").val().length) + ":00 " + suffix
-      console.log(endTime)
-
       var schedule = {
         "EID": eid,
         "Date": date,
         "Start_Time": startTime,
         "End_Time": endTime,
         "Created": id
-      }
-
+        }
       addSchedule(schedule);
       $('#addEmployeeModel').modal('hide')
       $('.modal-body').find('input:text').val('');
       $('.modal-body').find('input:date').val('');
       $('.modal-body').find('input:time').val('');
-    }
+
+      }
   });
 
   function loadData(){
@@ -191,6 +187,36 @@ $(function(){
         addEmployeeContents(res);
         }
       });
+
+    var getEmployeesRequest = "/getEmployees/id=" + id
+    $.ajax({
+      type: "GET",
+      url: getEmployeesRequest,
+      contentType: 'application/json',
+      success: function(response){
+        var res = response[0];
+        addOptions(res)
+        }
+      });
+
+  }
+
+  function addOptions(data){
+    var employees = []
+    employees.push(id + " | " + name)
+    data.forEach((item, i) => {
+      var eid = item["EID"]
+      var employeeName = item["First_Name"]
+
+      employees.push(eid + " | " + employeeName )
+    });
+
+    employees.forEach((item, i) => {
+      var to_add = `<option value="${item}">`
+      $('#employees').append(to_add)
+    });
+
+
   }
 
   function updateSchedule(data){

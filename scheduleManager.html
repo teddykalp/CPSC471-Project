@@ -80,8 +80,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <input class = "addSchedule" type="text" id = "scheduleEmployeeId" placeholder="Employee ID*"><br><br>
-          <br><label for="scheduleStartTime">Date</label><br>
+          <label for="employees">Employee</label><br>
+          <input list="employees" name="employees" id = "scheduleEmployeeId">
+          <datalist id="employees">
+          </datalist>
+          <br><br>
+          <label for="scheduleStartTime">Date</label><br>
           <input class = "addSchedule" type="date" id = "scheduleDate" placeholder="Date YYYY-MM-DD*"><br>
           <br><label for="scheduleStartTime">Start Time</label><br>
           <input class = "addSchedule" type="time" id = "scheduleStartTime" placeholder="Start Time HH:MM AM/PM*"><br>
