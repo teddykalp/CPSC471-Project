@@ -26,22 +26,23 @@ git merge <newbranchname>
 Run the command "node server.js" or "nodemon server.js"
 
 ## Connecting the client
-### The following pages currently are dummy pages that have no implemented functionality
 
 PORT - The port number you see in your console when you run the server
+
+### The following pages currently are dummy pages that have some implemented functionality
+
+localhost:PORT/scheduleManager
+
+### The following pages currently are pages that have FULL functionality (talks to to server and retrieves data through RESTful API)
+
+localhost:PORT/ 
 
 localhost:PORT/ 
 
 localhost:PORT/manager 
 
-localhost:PORT/crudEmployee
-
 localhost:PORT/payHistory
 
-localhost:PORT/scheduleManager
+localhost:PORT/crudEmployee
 
-localhost:PORT/addSchedule
 
-localhost:PORT/sendNotification
-
-### The following pages currently are pages that have functionality
