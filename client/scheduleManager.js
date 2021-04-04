@@ -36,6 +36,10 @@ $(function(){
     $(tds[1]).attr("contentEditable", "true")
     $(tds[2]).attr("contentEditable", "true")
     $(tds[3]).attr("contentEditable", "true")
+
+    $(tds[1]).css('border', "#FBD44B 2px solid");
+    $(tds[2]).css('border', "#FBD44B 2px solid");
+    $(tds[3]).css('border', "#FBD44B 2px solid");
     $(this).hide();
   })
 
@@ -49,66 +53,9 @@ $(function(){
     $(tds[2]).attr("contentEditable", "false")
     $(tds[3]).attr("contentEditable", "false")
 
-    error = false
-
-    var sid = $(tds[0]).text()
-    console.log(sid)
-    var date = $(tds[1]).text()
-    if (date.length != 10){
-      console.log("Improper Date")
-      error = true
-    }
-
-    var startTime =  $(tds[2]).text()
-
-    if (startTime.length < 10 || startTime.length > 11){
-      console.log("Incorrect Start Time")
-      error = true
-    }
-    var endTime = $(tds[3]).text()
-    if (endTime.length < 10 || endTime.length > 11){
-      console.log("Incorrect End Time")
-      error = true
-    }
-
-    if (!error){
-      var updateJSON = {
-        "SID": sid,
-        "Date": date,
-        "Start_Time": startTime,
-        "End_Time": endTime,
-        "Manager": id
-      }
-      console.log(updateJSON);
-      updateSchedule(updateJSON);
-    }
-
-    $(this).hide();
-  })
-
-  $(document).on('click', '.editEmployee', function(e){
-    var row = $(this).closest("tr"),       // Finds the closest row <tr>
-    tds = row.find("td");
-
-    $(this).closest('tr').find('.doneEmployee').show();
-
-
-    $(tds[1]).attr("contentEditable", "true")
-    $(tds[2]).attr("contentEditable", "true")
-    $(tds[3]).attr("contentEditable", "true")
-
-    $(this).hide();
-  })
-
-  $(document).on('click', '.doneEmployee', function(e){
-    var row = $(this).closest("tr"),       // Finds the closest row <tr>
-    tds = row.find("td");
-
-    $(this).closest('tr').find('.editEmployee').show();
-
-    $(tds[1]).attr("contentEditable", "false")
-    $(tds[2]).attr("contentEditable", "false")
-    $(tds[3]).attr("contentEditable", "false")
+    $(tds[1]).css('border', "");
+    $(tds[2]).css('border', "");
+    $(tds[3]).css('border', "");
 
     error = false
 
@@ -145,7 +92,7 @@ $(function(){
     }
 
     $(this).hide();
-  });
+  })
 
   $(document).on('click', '.delete', function(e){
     if (confirm('Are you sure you want to delete this schedule?')) {
@@ -163,21 +110,6 @@ $(function(){
 
   });
 
-  $(document).on('click', '.deleteEmployee', function(e){
-    if (confirm('Are you sure you want to delete this schedule?')) {
-        var row = $(this).closest("tr"),       // Finds the closest row <tr>
-        tds = row.find("td");
-
-        var eid = $(tds[0]).text()
-        row.remove();
-        console.log(`Deleted the Employee ${eid}`);
-    }
-    else
-    {
-        console.log("Cancelled Deletion");
-    }
-
-  });
 
   $(document).on('click', '.sendNotification', function(e){
     $('#sendNotificationModel').modal('show');
@@ -259,7 +191,7 @@ $(function(){
       }
 
 
-      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn editEmployee"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn doneEmployee" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
+      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
       $('#empSchedule').append(to_add);
     });
 
