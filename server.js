@@ -172,13 +172,12 @@ app.post("/addEmployee", function(req,res){
 // verify when employee clocks in, if they are working on a particular day
 app.get('/verifySchedule/id=:id&date=:date', function(req,res){
   id = ([req.params.id][0])
-  date = ([req.params.date][0])
-  var query = `SELECT * FROM SCHEDULE WHERE EID = ${id} AND DATE = ${date}`
+  date = "\"" + ([req.params.date][0]) + "\"";
+  var query = `SELECT ScheduleID FROM SCHEDULE WHERE EID = ${id} AND DATE = ${date}`
   mysqlConnection.query(query, true, (err, rows, fields) => {
     if (!err){
       console.log("Sent the following data to client");
-      console.log(rows);
-      res.send(rows);
+      res.send(rows[0]);
     }
     else
       console.log(err);
@@ -273,6 +272,72 @@ app.get('/payHistory/id=:id', function(req,res){
       console.log(err);
   });
 });
+
+app.post("/sendNotification", function(req, res){
+  var data = req.body
+  var sid = data["ScheduleID"]
+  var eid = data["EmployeeID"]
+  var type = "\"" + data["Type"] + "\"";
+  var message = "\"" + data["Message"] + "\"";
+  var call = `CALL SendNotification(${sid}, ${eid},${type}, 0, ${message})`
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+})
+
+app.get('/checkClock/id=:id', function(req,res){
+  var id = [req.params.id][0];
+  var query = `SELECT * FROM work_it.Clock WHERE EID = ${id} AND Clock_in <> '' AND Clock_out = ''`;
+  mysqlConnection.query(query, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+})
+
+app.post('/clockIn', function(req, res){
+  var data = req.body;
+  var sid = data["SID"];
+  var eid = data["EID"];
+  var clockIn = "\"" + data["Clock_in"] + "\"" ;
+  var clockOut = "\"" + data["Clock_out"] + "\"";
+  var call = `CALL ClockIn(${sid}, ${eid}, ${clockIn}, ${clockOut})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+});
+
+app.put("/clockOut", function(req,res){
+  var data = req.body;
+  var sid = data["SID"];
+  var clockOut = "\"" + data["Clock_out"] + "\"";
+  var call = `CALL ClockOut(${sid}, ${clockOut})`;
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err) {
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send(rows);
+    }
+    else
+      console.log(err);
+  });
+})
 
 
 

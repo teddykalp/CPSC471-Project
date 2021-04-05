@@ -1,13 +1,16 @@
 $(function(){
-
+  // setting up colors to use later
   let pastColor = '#FF8484';
   let currentColor = '#B0D8A4';
-
+  // getting current user's name and EID
   var name = localStorage.getItem("name");
   var id = localStorage.getItem("id");
+
+  // hiding buttons for now until user clicks on unhude button
   $("#employeeSchedule").hide();
   $('#managerSchedule-btn').hide()
 
+  //show employee schedule information and hide manager schedule information
   $("#employeeSchedule-btn").click(function(){
     $("#employeeSchedule").show();
     $("#managerSchedule").hide();
@@ -15,7 +18,7 @@ $(function(){
     $('#managerSchedule-btn').show()
     $("#employeeSchedule-btn").hide()
   })
-
+  // show manager schedule information and hide employee schedule information
   $("#managerSchedule-btn").click(function(){
     $("#employeeSchedule").hide();
     $("#managerSchedule").show();
@@ -24,41 +27,34 @@ $(function(){
     $("#employeeSchedule-btn").show()
   })
 
+  // load all the data into the tables
   loadData();
 
-
+  // when a manager wants to edit their own schedule or employee information
   $(document).on('click', '.edit', function(e){
     var row = $(this).closest("tr"),       // Finds the closest row <tr>
     tds = row.find("td");
-
     $(this).closest('tr').find('.done').show();
-
     $(tds[1]).attr("contentEditable", "true")
     $(tds[2]).attr("contentEditable", "true")
     $(tds[3]).attr("contentEditable", "true")
-
     $(tds[1]).css('border', "#FBD44B 2px solid");
     $(tds[2]).css('border', "#FBD44B 2px solid");
     $(tds[3]).css('border', "#FBD44B 2px solid");
     $(this).hide();
-  })
-
+  });
+  // when a manager is done editing, apply the changes
   $(document).on('click', '.done', function(e){
     var row = $(this).closest("tr"),       // Finds the closest row <tr>
     tds = row.find("td");
-
     $(this).closest('tr').find('.edit').show();
-
     $(tds[1]).attr("contentEditable", "false")
     $(tds[2]).attr("contentEditable", "false")
     $(tds[3]).attr("contentEditable", "false")
-
     $(tds[1]).css('border', "");
     $(tds[2]).css('border', "");
     $(tds[3]).css('border', "");
-
     error = false
-
     var sid = $(tds[0]).text()
     console.log(sid)
     var date = $(tds[1]).text()
@@ -66,9 +62,7 @@ $(function(){
       console.log("Improper Date")
       error = true
     }
-
     var startTime =  $(tds[2]).text()
-
     if (startTime.length < 10 || startTime.length > 11){
       console.log("Incorrect Start Time")
       error = true
@@ -78,8 +72,8 @@ $(function(){
       console.log("Incorrect End Time")
       error = true
     }
-
-    if (!error){
+    if (!error)
+    {
       var updateJSON = {
         "SID": sid,
         "Date": date,
@@ -87,18 +81,19 @@ $(function(){
         "End_Time": endTime,
         "Manager": id
       }
-      console.log(updateJSON);
       updateSchedule(updateJSON);
     }
-
+    else{
+      console.log("Error has occurred");
+    }
     $(this).hide();
   })
 
+  // delete schedule information
   $(document).on('click', '.delete', function(e){
     if (confirm('Are you sure you want to delete this schedule?')) {
         var row = $(this).closest("tr"),       // Finds the closest row <tr>
         tds = row.find("td");
-
         var eid = $(tds[0]).text()
         row.remove();
         console.log(`Deleted the Employee ${eid}`);
@@ -107,21 +102,19 @@ $(function(){
     {
         console.log("Cancelled Deletion");
     }
-
   });
 
-
+  // send a notifification to an employee about their schedule
   $(document).on('click', '.sendNotification', function(e){
     $('#sendNotificationModel').modal('show');
     var row = $(this).closest("tr"),       // Finds the closest row <tr>
     tds = row.find("td");
-
     var sid = $(tds[0]).text()
     $('#notificationScheduleId').val(sid);
     var eid = $(tds[4]).text()
     $('#notificationEmployeeId').val(eid);
   });
-
+  // when a manager confirms to send a notification
   $(document).on('click', '#confirm-send-notification', function(e){
     if($('#notificationType').val() === ""){
       console.log($('#notificationType').val())
@@ -133,9 +126,16 @@ $(function(){
       var type = $('#notificationType').val();
       var message = $('#message').val();
       console.log(message);
+      var result = {
+        "ScheduleID": sid,
+        "EmployeeID": eid,
+        "Type": type,
+        "Message": message
+      }
+      sendNotifcation(result);
     }
   })
-
+  // when a manager confirms to add a schedule
   $(document).on('click', '#confirm-add-schedule', function(e){
     if( $("#scheduleEmployeeId").val() === "")
     {
@@ -184,8 +184,9 @@ $(function(){
       }
   });
 
+  // AJAX function to load all the data, all GET requests
   function loadData(){
-
+    // fill in the schedule data for the user using the service
     var request = "/getSchedule/id=" + id;
     $.ajax({
       type: "GET",
@@ -196,7 +197,7 @@ $(function(){
         addContents(res);
         }
       });
-
+    // fill in the schedule data for the employees that the user manages
     var employeeRequest = "/getEmployeeSchedule/id=" + id;
     $.ajax({
       type: "GET",
@@ -207,7 +208,7 @@ $(function(){
         addEmployeeContents(res);
         }
       });
-
+    // fill in employee data to the schedule modal
     var getEmployeesRequest = "/getEmployees/id=" + id
     $.ajax({
       type: "GET",
@@ -218,27 +219,22 @@ $(function(){
         addOptions(res)
         }
       });
-
   }
-
+  // adding employees to the schedule model for the user
   function addOptions(data){
     var employees = []
     employees.push(id + " | " + name)
     data.forEach((item, i) => {
       var eid = item["EID"]
       var employeeName = item["First_Name"]
-
       employees.push(eid + " | " + employeeName )
     });
-
     employees.forEach((item, i) => {
       var to_add = `<option value="${item}">`
       $('#employees').append(to_add)
     });
-
-
   }
-
+  // AJAX request to update a schedule in the database
   function updateSchedule(data){
     var jsonData = JSON.stringify(data)
     console.log(jsonData);
@@ -268,7 +264,7 @@ $(function(){
         }
       });
   }
-
+  // function to add employee contents to the user schedule table
   function addEmployeeContents(data){
     data.forEach((item, i) => {
       var sid = item["ScheduleID"]
@@ -282,25 +278,20 @@ $(function(){
       var color = ""
       var parsedDate = Date.parse(date);
       var today_date = new Date();
-
       if (parsedDate < today_date){
         color = pastColor;
       }
       else{
         color = currentColor;
       }
-
-
       var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
       $('#empSchedule').append(to_add);
     });
-
   }
 
-
+  // function to add contents to the user schedule table
   function addContents(data){
     data.forEach((item, i) => {
-
         var color = ""
         var id = (item["ScheduleID"]);
         var date = (item["Date"].substring(0,10));
@@ -314,15 +305,11 @@ $(function(){
         else{
           color = currentColor;
         }
-
         var to_add = `<tr style = 'background-color:${color}'><td>${id}</td><td>${date}</td><td>${start}</td><td>${end}</td><td><button class = "btn btn-dark edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
         $('#schedTable').append(to_add);
-
-
-
     });
   }
-
+  // AJAX request to the add a schedule entry to the database
   function addSchedule(data){
     var jsonData = JSON.stringify(data);
     var request = "/addSchedule"
@@ -350,5 +337,20 @@ $(function(){
         }
         }
       });
+  }
+
+  function sendNotifcation(data){
+    var jsonData = JSON.stringify(data);
+    var request = "/sendNotification"
+    $.ajax({
+      type: "POST",
+      url: request,
+      data: jsonData,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(response){
+        console.log(response);
+      }
+    })
   }
 });
