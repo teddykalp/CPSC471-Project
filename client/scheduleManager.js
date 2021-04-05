@@ -90,13 +90,15 @@ $(function(){
   })
 
   // delete schedule information
+  // TODO, implement the delete functionality of a schedule;
   $(document).on('click', '.delete', function(e){
     if (confirm('Are you sure you want to delete this schedule?')) {
         var row = $(this).closest("tr"),       // Finds the closest row <tr>
         tds = row.find("td");
-        var eid = $(tds[0]).text()
+        var sid = $(tds[0]).text();
+        deleteSchedule(sid)
         row.remove();
-        console.log(`Deleted the Employee ${eid}`);
+        console.log(`Deleted the Schedule ${sid}`);
     }
     else
     {
@@ -284,7 +286,7 @@ $(function(){
       else{
         color = currentColor;
       }
-      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn deleteEmployee"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
+      var to_add = `<tr style = "background-color: ${color}"><td>${sid}</td><td>${date}</td><td>${start}</td><td>${end}</td><td>${eid}</td><td>${first_name}</td><td>${last_name}</td><td>${dept}</td><td><button class = "btn edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td><td><button class = "btn sendNotification"><i class="fas fa-paper-plane"></i>Send Notification</button></td></tr>`
       $('#empSchedule').append(to_add);
     });
   }
@@ -350,6 +352,26 @@ $(function(){
       dataType: 'json',
       success: function(response){
         console.log(response);
+      }
+    })
+  }
+
+  function deleteSchedule(sid){
+    console.log(sid);
+    var request = "/deleteSchedule/id="+sid;
+    $.ajax({
+      type: "DELETE",
+      url: request,
+      contentType: 'application/json',
+      success: function(response){
+        if (response === "SUCCESS"){
+          $('#schedule-msg').text("Successfully Deleted Schedule");
+          $('#schedule-msg').css("color", "green");
+        }
+        else{
+          $('#schedule-msg').text("Something went wrong");
+          $('#schedule-msg').css("color", "red");
+        }
       }
     })
   }

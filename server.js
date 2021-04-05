@@ -339,6 +339,22 @@ app.put("/clockOut", function(req,res){
   });
 })
 
+app.delete("/deleteSchedule/id=:id", function(req,res){
+  console.log("DELETE REQUEST");
+  var sid = [req.params.id][0];
+  var call = `CALL DeleteSchedule(${sid})`
+  console.log(call)
+  mysqlConnection.query(call, true, (err, rows, fields) => {
+    if (!err){
+      console.log("Sent the following data to client");
+      console.log(rows);
+      res.send("SUCCESS");
+    }
+    else
+      res.send("ERROR");
+  });
+})
+
 
 
 // app.get('/employees/:id/:name', function(req,res){
