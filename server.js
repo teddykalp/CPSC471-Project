@@ -94,7 +94,7 @@ app.get('/login/id=:id', function(req,res){
 app.get("/getEmployees/id=:id", function(req,res){
   var id = [req.params.id][0];
   console.log(id);
-  var call = `CALL ManangeEmployees(${id})`;
+  var call = `CALL ManageEmployees(${id})`;
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
       console.log("Sent the following data to client");
