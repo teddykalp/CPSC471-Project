@@ -30,6 +30,17 @@ $(function(){
   // load all the data into the tables
   loadData();
 
+  // check that a worker is logged in so we hide all the buttons
+  checkWorker();
+
+  function checkWorker(){
+    var manager = localStorage.getItem("manager");
+    if (manager === 'false'){
+      $("#addSchedule").hide();
+      $('#employeeSchedule-btn').hide();
+    }
+  }
+
   // when a manager wants to edit their own schedule or employee information
   $(document).on('click', '.edit', function(e){
     var row = $(this).closest("tr"),       // Finds the closest row <tr>

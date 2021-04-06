@@ -11,6 +11,15 @@ $(function(){
   console.log(store);
 
   checkClockedIn();
+  checkWorker();
+
+  function checkWorker(){
+    var manager = localStorage.getItem("manager");
+    if (manager === 'false'){
+      $("#crud-btn").hide();
+      $('#scheduleMessage').text("View Schedule");
+    }
+  }
 
   $('#welcomeName').text(`Welcome ${name}`)
 
@@ -29,10 +38,6 @@ $(function(){
     window.location.href = win + "scheduleManager";
   });
 
-  $("#notification-btn").click(function(){
-    var win = window.location.href.replace("manager", "")
-    window.location.href = win + "sendNotification";
-  });
 
   $("#clock-btn").click(function(){
 

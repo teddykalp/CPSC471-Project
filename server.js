@@ -48,6 +48,10 @@ app.get('/manager', function(req,res){
 	 res.sendFile(__dirname + '/manager.html');
 })
 
+app.get('/employee', function(req,res){
+  res.sendFile(__dirname + '/employee.html');
+})
+
 app.get('/crudEmployee', function(req,res){
 	 res.sendFile(__dirname + '/crud-employee.html');
 })
