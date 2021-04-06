@@ -318,8 +318,15 @@ $(function(){
         else{
           color = currentColor;
         }
-        var to_add = `<tr style = 'background-color:${color}'><td>${id}</td><td>${date}</td><td>${start}</td><td>${end}</td><td><button class = "btn btn-dark edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
-        $('#schedTable').append(to_add);
+        var manager = localStorage.getItem("manager");
+        if (manager === 'false'){
+          var to_add = `<tr style = 'background-color:${color}'><td>${id}</td><td>${date}</td><td>${start}</td><td>${end}</td></tr>`
+          $('#schedTable').append(to_add);
+        }
+        else{
+          var to_add = `<tr style = 'background-color:${color}'><td>${id}</td><td>${date}</td><td>${start}</td><td>${end}</td><td><button class = "btn btn-dark edit"><i class="fas fa-edit"></i>Edit</button></td><td><button class = "btn done" style = "display: none;"><i class="fas fa-check-square"></i>Done</button></td><td><button class = "btn delete"><i class="fas fa-trash-alt"></i>Delete</button></td></tr>`
+          $('#schedTable').append(to_add);
+        }
     });
   }
   // AJAX request to the add a schedule entry to the database
