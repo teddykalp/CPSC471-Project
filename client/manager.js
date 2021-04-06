@@ -63,7 +63,8 @@ $(function(){
           clockCheck(response["ScheduleID"]);
         }
         else{
-          console.log("You're not working today");
+          $('#clockError').text("You're not working today");
+          $('#clockError').css('color', 'red');
         }
       }
     });
