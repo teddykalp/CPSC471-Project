@@ -157,8 +157,13 @@ $(function(){
        $('.modal-body').find('input:text').val('');
        $('.modal-body').find('input:radio').prop('checked', false);
     }
+  })
 
-
+  $(document).on('click', "#close-menu", function(e){
+    console.log("Close clicked");
+    $('.modal').modal('hide')
+    $('.modal-body').find('input:text').val('');
+    $('.modal-body').find('input:radio').prop('checked', false);
   })
 
 
