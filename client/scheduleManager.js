@@ -66,10 +66,11 @@ $(function(){
     $(tds[2]).css('border', "");
     $(tds[3]).css('border', "");
     error = false
+
     var sid = $(tds[0]).text()
     console.log(sid)
     var date = $(tds[1]).text()
-    if (date.length != 10){
+    if (!isValidDate(date)){
       console.log("Improper Date")
       error = true
     }
@@ -393,4 +394,14 @@ $(function(){
       }
     })
   }
+
+  function isValidDate(dateString) {
+    var regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if(!dateString.match(regEx)) return false;  // Invalid format
+    var d = new Date(dateString);
+    var dNum = d.getTime();
+    if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+    return d.toISOString().slice(0,10) === dateString;
+  };
+
 });
