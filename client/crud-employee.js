@@ -16,13 +16,7 @@ $(function(){
     var row = $(this).closest("tr"),       // Finds the closest row <tr>
     tds = row.find("td");
 
-    // do the server stuff first
 
-    $(tds[1]).attr("contentEditable", "false")
-    $(tds[2]).attr("contentEditable", "false")
-    $(tds[3]).attr("contentEditable", "false")
-    $(tds[4]).attr("contentEditable", "false")
-    $(tds[5]).attr("contentEditable", "false")
 
     var eid = $(tds[0]).text()
     var firstname = $(tds[1]).text()
@@ -30,43 +24,64 @@ $(function(){
     var email = $(tds[3]).text()
     var phone = $(tds[4]).text()
     var dept = $(tds[5]).text()
-
-    var data ={
-      "ID": eid,
-      "First Name": firstname,
-      "Last Name": lastname,
-      "Email": email,
-      "Phone": phone,
-      "Dept": dept
+    console.log(dept);
+    var deptNum = parseInt(dept)
+    if (firstname === ""){
+      $("#search-msg").text("Please enter a valid firstname");
+      $('#search-msg').css("color", "red");
     }
+    else if (lastname === ""){
+      $("#search-msg").text("Please enter a valid lastname");
+      $('#search-msg').css("color", "red");
+    }
+    else if (!validateEmail(email)){
+      $("#search-msg").text("Please enter a valid email");
+      $('#search-msg').css("color", "red");
+    }
+    else if (!validatePhone(phone)){
+      $("#search-msg").text("Please enter a valid phone number");
+      $('#search-msg').css("color", "red");
+    }
+    else if (!Number.isInteger(deptNum)){
+      $("#search-msg").text("Please enter a valid department number");
+      $('#search-msg').css("color", "red");
+    }
+    else
+    {
+      var data ={
+        "ID": eid,
+        "First Name": firstname,
+        "Last Name": lastname,
+        "Email": email,
+        "Phone": phone,
+        "Dept": dept
+      }
+      updateEmployee(data);
+      // on success change the Button
+      $(this).closest('tr').find('.edit').show();
+      $(this).hide();
 
-    updateEmployee(data);
 
-    // on success change the Button
-    $(this).closest('tr').find('.edit').show();
-    $(this).hide();
-
-
+      $(tds[1]).attr("contentEditable", "false")
+      $(tds[2]).attr("contentEditable", "false")
+      $(tds[3]).attr("contentEditable", "false")
+      $(tds[4]).attr("contentEditable", "false")
+      $(tds[5]).attr("contentEditable", "false")
+    }
   });
 
-  $(document).on('click', '.edit', function(e) {
-    $('#search-msg').text("");
+    $(document).on('click', '.edit', function(e) {
+      $('#search-msg').text("");
+      var row = $(this).closest("tr");
+      tds = row.find("td");
+      $(this).closest('tr').find('.done').show();
+      $(tds[1]).attr("contentEditable", "true")
+      $(tds[2]).attr("contentEditable", "true")
+      $(tds[3]).attr("contentEditable", "true")
+      $(tds[4]).attr("contentEditable", "true")
+      $(tds[5]).attr("contentEditable", "true")
 
-    var row = $(this).closest("tr"),       // Finds the closest row <tr>
-    tds = row.find("td");
-             // Finds all children <td> elements
-
-    $(this).closest('tr').find('.done').show();
-
-    $(tds[1]).attr("contentEditable", "true")
-    $(tds[2]).attr("contentEditable", "true")
-    $(tds[3]).attr("contentEditable", "true")
-    $(tds[4]).attr("contentEditable", "true")
-    $(tds[5]).attr("contentEditable", "true")
-
-    $(this).hide();
-
-
+      $(this).hide();
   });
 
   // gonna work on this later because has lots of integrity constraints
@@ -182,6 +197,7 @@ $(function(){
 
   function loadData(){
     var request = "/getEmployees/id=" + id;
+    console.log("Getting data");
     $.ajax({
       type: "GET",
       url: request,
@@ -263,7 +279,11 @@ $(function(){
   function validateEmail(email) {
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailReg.test(email);
-    /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g
+  }
+
+  function validatePhone(phone){
+    var phoneReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+    return phoneReg.test(phone);
   }
 
 
