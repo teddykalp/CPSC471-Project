@@ -117,14 +117,19 @@ app.put("/updateEmployee", function(req,res){
   var phone = "\"" + data["Phone"] + "\"";
   var dept = data["Dept"];
   var call = `CALL UpdateEmployee(${id},${firstname},${lastname},${phone},${email},${dept})`;
+  var resMessage = {
+    "Message": ""
+  }
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
-      console.log("Sent the following data to client");
-      console.log(rows);
-      res.send(rows);
+      console.log("Data sent");
+      resMessage["Message"] = "success"
     }
-    else
-      console.log("error");
+    else{
+      console.log(err);
+      resMessage["Message"] = "error"
+    }
+    res.send((resMessage));
   });
 });
 
@@ -132,14 +137,19 @@ app.put("/updateEmployee", function(req,res){
 app.delete("/deleteEmployee/id=:id", function(req,res){
   var eid = [req.params.id][0];
   var call = `CALL DeleteEmployee(${eid})`
+  var resMessage = {
+    "Message": ""
+  }
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
       console.log("Sent the following data to client");
-      console.log(rows);
-      res.send("SUCCESS");
+      resMessage["Message"] = "success"
     }
-    else
-      console.log("ERROR");
+    else{
+      console.log(err);
+      resMessage["Message"] = "error"
+    }
+    res.send((resMessage));
   });
 });
 
@@ -163,14 +173,20 @@ app.post("/addEmployee", function(req,res){
   var store = "\"" + data["Store_Name"] + "\"";
   var call = `CALL AddEmployee(${manager_id},${eid},${firstname},${lastname},${email},  ${phone},${salary},${is_manager},${is_sub_manager},${is_worker},${pay},${wage}, ${branch},${dept},${store})`;
   console.log(call);
+  var resMessage = {
+    "Message": ""
+  }
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
       console.log("Sent the following data to client");
       console.log(rows);
-      res.send(rows);
+      resMessage["Message"] = "success"
     }
-    else
+    else{
       console.log(err);
+      resMessage["Message"] = "error"
+    }
+    res.send((resMessage));
   });
 });
 
@@ -184,8 +200,11 @@ app.get('/verifySchedule/id=:id&date=:date', function(req,res){
       console.log("Sent the following data to client");
       res.send(rows[0]);
     }
-    else
+    else{
       console.log(err);
+      res.send(err)
+    }
+
   });
 });
 
@@ -229,38 +248,44 @@ app.post('/addSchedule', function (req, res) {
   var created = data["Created"];
 
   var call = `CALL addSchedule(${date}, ${startTime}, ${endTime}, ${eid}, ${created})`
+  var resMessage = {
+    "Message": ""
+  }
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
       console.log("Sent the following data to client");
-      console.log(rows);
-      res.send(rows);
+      resMessage["Message"] = "success"
     }
-    else
+    else{
       console.log(err);
+      resMessage["Message"] = "success"
+    }
+    res.send((resMessage));
   });
 });
 
 // manager updating a schedule entry for an employee
 app.put('/updateSchedule', function (req, res) {
   var data = req.body;
-
   var sid = data["SID"];
   var date = "\"" + data["Date"] + "\"";
   var startTime = "\"" + data["Start_Time"] + "\"";
   var endTime = "\"" + data["End_Time"] + "\"";
   var eid = data["Manager"];
-
-
   var call = `CALL updateSchedule(${sid}, ${date}, ${startTime}, ${endTime}, ${eid})`
-    console.log(call);
+  console.log(call);
+  var resMessage = {
+    "Message": ""
+  }
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err) {
       console.log("Sent the following data to client");
-      console.log(rows);
-      res.send(rows);
+      resMessage["Message"] = "success"
     }
-    else
-      console.log(err);
+    else{
+      resMessage["Message"] = "error"
+    }
+    res.send((resMessage));
   });
 });
 
@@ -291,8 +316,10 @@ app.post("/sendNotification", function(req, res){
       console.log(rows);
       res.send(rows);
     }
-    else
+    else{
       console.log(err);
+      res.send("error");
+    }
   });
 })
 
@@ -345,7 +372,6 @@ app.put("/clockOut", function(req,res){
 })
 
 app.delete("/deleteSchedule/id=:id", function(req,res){
-  console.log("DELETE REQUEST");
   var sid = [req.params.id][0];
   var call = `CALL DeleteSchedule(${sid})`
   console.log(call)

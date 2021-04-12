@@ -65,8 +65,7 @@ $(function(){
     $(tds[1]).css('border', "");
     $(tds[2]).css('border', "");
     $(tds[3]).css('border', "");
-    error = false
-
+    error = false;
     var sid = $(tds[0]).text()
     console.log(sid)
     var date = $(tds[1]).text()
@@ -260,14 +259,10 @@ $(function(){
       contentType: 'application/json',
       dataType: 'json',
       success: function(response){
-        console.log(response)
-        if (response === "error")
+        var message = response["Message"]
+        if (message === "error")
         {
           console.log("Something went wrong")
-        }
-        else if (response["affectedRows"] < 1)
-        {
-          console.log("Nothing changed")
         }
         else
         {
@@ -313,7 +308,8 @@ $(function(){
         var end = (item["End_Time"]);
         var parsedDate = Date.parse(date);
         var today_date = new Date();
-        if (parsedDate < today_date){
+        var dateOffset = (24*60*60*1000);
+        if (parsedDate < (today_date - dateOffset)){
           color = pastColor;
         }
         else{
@@ -341,14 +337,10 @@ $(function(){
       contentType: 'application/json',
       dataType: 'json',
       success: function(response){
-        console.log(response)
-        if (response === "error")
+        var message = response["Message"]
+        if (message === "error")
         {
           console.log("Something went wrong")
-        }
-        else if (response["affectedRows"] < 1)
-        {
-          console.log("Nothing changed")
         }
         else
         {

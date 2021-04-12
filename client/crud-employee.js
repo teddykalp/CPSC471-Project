@@ -229,7 +229,7 @@ $(function(){
     jsonData = JSON.stringify(data);
 
     var request = "/updateEmployee";
-
+    console.log(request);
     $.ajax({
       type: "PUT",
       url: request,
@@ -237,14 +237,10 @@ $(function(){
       contentType: 'application/json',
       dataType: 'json',
       success: function(response){
-        console.log(response)
-        if (response === "error")
+        var message = response["Message"]
+        if (message === "error")
         {
           console.log("Something went wrong")
-        }
-        else if (response["affectedRows"] < 1)
-        {
-          console.log("Nothing changed")
         }
         else
         {
@@ -263,7 +259,10 @@ $(function(){
       url: request,
       contentType: 'application/json',
       success: function(response){
-        if (response === "SUCCESS"){
+        console.log(response);
+        var message = response["Message"]
+        console.log(message)
+        if (message == "success"){
           console.log(response)
           $("#search-msg").text("Successfully Deleted Employee");
           $('#search-msg').css("color", "green");
