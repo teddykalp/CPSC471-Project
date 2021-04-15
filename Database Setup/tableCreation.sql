@@ -26,20 +26,20 @@ CREATE TABLE DEPARTMENT(
 
 CREATE TABLE EMPLOYEE(
     /*Primary Keys*/
-     EID int NOT NULL AUTO_INCREMENT,
-        PRIMARY KEY (EID),
-        /* Name attributes*/
-       First_Name varchar(255),
+	EID int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (EID),
+	/* Name attributes*/
+	First_Name varchar(255),
     Last_Name varchar(255),
     Email varchar(255),
     Phone varchar(255),
-        /*Salary (True) or Hourly (False)*/
-        Salary Bool,
-        /*Type of Employee Booleans*/
-        Manager Bool,
-        Sub_Manager Bool,
-        Worker Bool,
-        /* How much they get paid, use Pay if Salary = True, use Wage_hr otherwise */
+	/*Salary (True) or Hourly (False)*/
+	Salary Bool,
+	/*Type of Employee Booleans*/
+	Manager Bool,
+	Sub_Manager Bool,
+	Worker Bool,
+	/* How much they get paid, use Pay if Salary = True, use Wage_hr otherwise */
     Pay int,
     Wage_hr int,
     /*Foreign Keys*/
@@ -55,61 +55,56 @@ CREATE TABLE EMPLOYEE(
 
 
 CREATE TABLE MANAGES(
-       Manager_EID int NOT NULL,
-        EID int NOT NULL,
-        PRIMARY KEY(Manager_EID, EID),
-        FOREIGN KEY(Manager_EID) REFERENCES EMPLOYEE(EID),
-        FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID)
+	Manager_EID int NOT NULL,
+	EID int NOT NULL,
+	PRIMARY KEY(Manager_EID, EID),
+	FOREIGN KEY(Manager_EID) REFERENCES EMPLOYEE(EID),
+	FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID)
 );
 
 CREATE TABLE SCHEDULE(
     /* The auto increment will allow us to insert an entry without needing to specify an ID */
-        ScheduleID int NOT NULL AUTO_INCREMENT,
-        PRIMARY KEY(ScheduleID),
-       Date Date,
-       Start_Time varchar(255),
+	ScheduleID int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(ScheduleID),
+	Date Date,
+	Start_Time varchar(255),
     End_Time varchar(255),
-        EID int,
-        Created_EID int,
-        FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID),
-        FOREIGN KEY(Created_EID) REFERENCES EMPLOYEE(EID)
+	EID int,
+	Created_EID int,
+	FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID),
+	FOREIGN KEY(Created_EID) REFERENCES EMPLOYEE(EID)
 );
 
 
 CREATE TABLE CLOCK(
     SID int NOT NULL,
-    Check_in DateTime,
-    Check_out DateTime,
-    EID int,
+	EID int,
+    Clock_In varchar(255),
+    Clock_out varchar(255),
     PRIMARY KEY(SID),
     FOREIGN KEY(SID) References Schedule(ScheduleID),
-FOREIGN KEY(EID) References Employee(EID)
+	FOREIGN KEY(EID) References Employee(EID)
 );
-
-CREATE TABLE Payroll(
+CREATE TABLE PAYROLL(
     Date date NOT NULL,
-        EID int NOT NULL,
-        Total_Hours decimal(5,2) NOT NULL,
-        Total_Pay decimal(5,2) NOT NULL,
-        PRIMARY KEY(Date, EID),
-        FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID)
+	EID int NOT NULL,
+	Total_Hours decimal(5,2) NOT NULL,
+	Total_Pay decimal(5,2) NOT NULL,
+	PRIMARY KEY(Date, EID),
+	FOREIGN KEY(EID) REFERENCES EMPLOYEE(EID)
 );
-
-CREATE TABLE pay(
+CREATE TABLE PAY(
     PayId int NOT NULL,
-        EID int NOT NULL,
-        Pay_Period_Start Date NOT NULL,
+	EID int NOT NULL,
+	Pay_Period_Start Date NOT NULL,
     Pay_Period_End Date NOT NULL,
-        Gross_Pay decimal (6,2) NOT NULL,
-        Net_Pay decimal (6,2) NOT NULL,
-        Tax decimal (5,2) NOT NULL,
-        Date_Posted date NOT NULL,
+	Gross_Pay decimal (6,2) NOT NULL,
+	Net_Pay decimal (6,2) NOT NULL,
+	Tax decimal (5,2) NOT NULL,
+	Date_Posted date NOT NULL,
     PRIMARY KEY(PayId),
-        FOREIGN KEY(EID) REFERENCES Employee(EID)
+	FOREIGN KEY(EID) REFERENCES Employee(EID)
 );
-
-
-
 CREATE TABLE NOTIFICATION(
     SID Int,
     EID Int,
@@ -120,18 +115,12 @@ CREATE TABLE NOTIFICATION(
     FOREIGN KEY(SID) REFERENCES Schedule(ScheduleID),
     FOREIGN KEY(EID) REFERENCES Employee(EID)
 );
-
-
-
-
 CREATE TABLE SENDS(
     SID int,
     EID int,
     Email varchar(255),
     Phone varchar(255),
     PRIMARY KEY(SID,EID),
-FOREIGN KEY(SID) REFERENCES Schedule(ScheduleID),
+	FOREIGN KEY(SID) REFERENCES Schedule(ScheduleID),
     FOREIGN KEY(EID) REFERENCES Employee(EID)
 );
-
-
