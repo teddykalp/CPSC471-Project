@@ -170,18 +170,33 @@ $(function(){
       var date = $("#scheduleDate").val()
       var startHour = parseInt($("#scheduleStartTime").val().substring(0,2));
       var suffix = "AM"
-      if (startHour > 12){
+      if (startHour == 0)
+      {
+        startHour = 12
+      }
+      else if (startHour > 12)
+      {
           startHour = startHour - 12
           suffix = "PM"
-        }
-      var startTime = startHour + $("#scheduleStartTime").val().substring(2,$("#scheduleStartTime").val().length) + ":00 " + suffix
+      }
+      var startMinutes = $("#scheduleStartTime").val().substring(2,$("#scheduleStartTime").val().length)
+      if (parseInt(startMinutes) < 10){
+        startMinutes = "0"+startMinutes
+      }
+      var startTime = startHour + startMinutes + ":00 " + suffix;
       var endHour = parseInt($("#scheduleEndTime").val().substring(0,2));
       suffix = "AM"
       if (endHour > 12){
           endHour = endHour - 12
           suffix = "PM"
         }
-      var endTime = endHour + $("#scheduleEndTime").val().substring(2,$("#scheduleEndTime").val().length) + ":00 " + suffix
+      var endMinutes = $("#scheduleEndTime").val().substring(2,$("#scheduleEndTime").val().length);
+
+      if (parseInt(endMinutes) < 10){
+        endMinutes = "0"+endMinutes
+      }
+
+      var endTime = endHour + endMinutes + ":00 " + suffix
       var schedule = {
         "EID": eid,
         "Date": date,
@@ -287,7 +302,8 @@ $(function(){
       var color = ""
       var parsedDate = Date.parse(date);
       var today_date = new Date();
-      if (parsedDate < today_date){
+      var dateOffset = (24*60*60*1000);
+      if (parsedDate < (today_date - dateOffset)){
         color = pastColor;
       }
       else{
@@ -347,6 +363,7 @@ $(function(){
           console.log("Changed worked");
           $('#schedule-msg').text("Successfully Added Schedule");
           $('#schedule-msg').css("color", "green");
+          window.location.reload(true);
         }
         }
       });
@@ -363,6 +380,7 @@ $(function(){
       dataType: 'json',
       success: function(response){
         console.log(response);
+        $('#sendNotificationModel').modal('hide')
       }
     })
   }
