@@ -32,13 +32,8 @@ $(function(){
 
   // check that a worker is logged in so we hide all the buttons
   checkWorker();
+  setMinDate();
 
-  // set up minimum date for modal
-  var now = new Date();
-  var day = ("0" + now.getDate()).slice(-2);
-  var month = ("0" + (now.getMonth() + 1)).slice(-2);
-  var today = now.getFullYear() + "-" + (month) + "-" + (day);
-  $('#scheduleDate').attr('min', today);
 
 
   function checkWorker(){
@@ -47,6 +42,15 @@ $(function(){
       $("#addSchedule").hide();
       $('#employeeSchedule-btn').hide();
     }
+  }
+
+  function setMinDate(){
+    // set up minimum date for modal
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+    $('#scheduleDate').attr('min', today);
   }
 
   // when a manager wants to edit their own schedule or employee information
