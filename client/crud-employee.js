@@ -7,6 +7,10 @@ $(function(){
 
   loadData();
 
+  $('#backArrow').click(function(){
+    var win = window.location.href.replace("crudEmployee", "")
+    window.location.href = win + "manager";
+  })
 
   $('#addEmployee').click(function(){
     console.log("Add Clicked");

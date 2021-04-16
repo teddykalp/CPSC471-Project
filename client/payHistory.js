@@ -4,6 +4,11 @@ $(function(){
 
   loadData();
 
+  $('#backArrow').click(function(){
+    var win = window.location.href.replace("payHistory", "")
+    window.location.href = win + "manager";
+  })
+
   function loadData(){
     var request = '/payHistory/id='+id
     $.ajax({

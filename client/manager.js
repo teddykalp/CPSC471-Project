@@ -51,6 +51,11 @@ $(function(){
     getSchedule(str_date);
   });
 
+  $("#logout").click(function(){
+    var win = window.location.href.replace("manager", "")
+    window.location.href = win;
+  })
+
   function getSchedule(str_date){
     var url = "/verifySchedule/id="+id+"&date="+str_date
     console.log(url)

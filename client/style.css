@@ -132,3 +132,12 @@ i {
   border: 2px solid #F2AE29;
   color: white;
 }
+
+#backArrow{
+  color: #FBD44B;
+  font-size: 200%;
+}
+
+#backArrow:hover{
+  color: orange;
+}

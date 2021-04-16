@@ -27,6 +27,11 @@ $(function(){
     $("#employeeSchedule-btn").show()
   })
 
+  $('#backArrow').click(function(){
+    var win = window.location.href.replace("scheduleManager", "")
+    window.location.href = win + "manager";
+  })
+
   // load all the data into the tables
   loadData();
   // check that a worker is logged in so we hide all the buttons
