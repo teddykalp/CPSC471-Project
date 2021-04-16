@@ -29,7 +29,6 @@ $(function(){
 
   // load all the data into the tables
   loadData();
-
   // check that a worker is logged in so we hide all the buttons
   checkWorker();
   setMinDate();
