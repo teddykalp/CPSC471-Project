@@ -1,3 +1,4 @@
+// server-side code ////
 var DEBUG = true;
 
 // packages we're going to be using
@@ -93,8 +94,6 @@ app.get('/login/id=:id', function(req,res){
 // view all employees for a manager or sub manager
 app.get("/getEmployees/id=:id", function(req,res){
   var id = [req.params.id][0];
-  console.log(id);
-  console.log("What is happening");
   var call = `CALL ManageEmployees(${id})`;
   mysqlConnection.query(call, true, (err, rows, fields) => {
     if (!err){
@@ -204,7 +203,6 @@ app.get('/verifySchedule/id=:id&date=:date', function(req,res){
       console.log(err);
       res.send(err)
     }
-
   });
 });
 

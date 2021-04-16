@@ -33,6 +33,14 @@ $(function(){
   // check that a worker is logged in so we hide all the buttons
   checkWorker();
 
+  // set up minimum date for modal
+  var now = new Date();
+  var day = ("0" + now.getDate()).slice(-2);
+  var month = ("0" + (now.getMonth() + 1)).slice(-2);
+  var today = now.getFullYear() + "-" + (month) + "-" + (day);
+  $('#scheduleDate').attr('min', today);
+
+
   function checkWorker(){
     var manager = localStorage.getItem("manager");
     if (manager === 'false'){

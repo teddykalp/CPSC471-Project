@@ -52,7 +52,7 @@ $(function(){
   });
 
   function getSchedule(str_date){
-    url = "/verifySchedule/id="+id+"&date="+str_date
+    var url = "/verifySchedule/id="+id+"&date="+str_date
     console.log(url)
     $.ajax({
       type: "GET",
