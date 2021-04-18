@@ -1,5 +1,5 @@
 # User Guide
-### Welcome to Work It, the easy to use schedule and employee management system! Before being able to use our solutions, you need a few things installed.
+Welcome to Work It, the easy to use schedule and employee management system! Before being able to use our solutions, you need a few things installed.
 
 ## Installation
 
